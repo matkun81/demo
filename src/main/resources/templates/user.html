@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+</head>
+
+
+<body>
+
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<form th:action="@{/user/{userId}(userId = ${currentUser})}" enctype="multipart/form-data" class="form-horizontal" method="post">
+    <input type="text" name="name" placeholder="Input name of company">
+    <input type="text" name="description" placeholder="Input description of company">
+    <input type="text" name="topic" placeholder="Input topic of company">
+    <input type="text" name="finishSum" th:value="0" placeholder="Input sum of money">
+    <input type="file" name="file" placeholder="Выберите изображение">
+    <button type="submit">add</button>
+</form>
+<h2>Companies</h2>
+
+<table id="companies" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th >
+        <th>Description</th>
+        <th>Topic</th>
+        <th>Finish sum of money</th>
+        <th>Changes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${listCompany}">
+        <td th:text="${company.name}"/>
+        <td th:text="${company.description}"/>
+        <td th:text="${company.topic}"/>
+        <td th:text = "${company.finishSum}"/>
+        <td><img th:src="@{'/uploads/' + ${company.fileName}}" width="50" height="50"/></td>
+        <td><form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser})}" class="form-horizontal" method="post">
+            <input type="hidden" th:value="${company.id}" name="companyId">
+            <button type="submit">delete</button>
+        </form>
+        </td>
+        <td><a th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser})}"> edit
+        </a>
+        </td>
+        <td><a th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser})}"> News
+        </a>
+        </td>
+        <td><a th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser})}"> Bonuses
+        </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

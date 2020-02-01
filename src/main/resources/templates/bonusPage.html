@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/user/{userId}/company/{companyId}/bonus(companyId =${companyId},userId =${userId})}" enctype="multipart/form-data" class="form-horizontal" method="post">
+    <input type="text" name="name" placeholder="Input name">
+    <input type="text" name="description" placeholder="Input description">
+    <input type="number" name="sumOfMoney" placeholder="Sum of money">
+    <button type="submit">add</button>
+</form>
+<h2>Bonuses</h2>
+
+<table id="bonuses" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th >
+        <th>Description</th>
+        <th>Sum of money</th>
+        <th>Changes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bonus : ${listBonuses}">
+        <td th:text="${bonus.name}"/>
+        <td th:text="${bonus.description}"/>
+        <td th:text="${bonus.sumOfMoney}"/>
+        <td><form th:action="@{/user/{userId}/company/{companyId}/bonus/deleteBonus(userId = ${userId}, companyId = ${companyId})}" class="form-horizontal" method="post">
+            <input type="hidden" th:value="${bonus.id}" name="bonusId">
+            <button type="submit">delete</button>
+        </form>
+        </td>
+        <td><a th:href="@{/user/{userId}/company/{companyId}/bonus/editBonus/{bonusId}(companyId =${companyId},userId =${userId}, bonusId = ${bonus.id})}"> edit
+        </a>
+        </td>
+        <!--<td><a th:href="@{/user/{userId}/news/{companyId}(companyId =${company.id},userId =${currentUser})}"> News-->
+        <!--</a>-->
+        <!--</td>-->
+    </tr>
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
