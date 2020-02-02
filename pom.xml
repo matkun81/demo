@@ -67,6 +67,12 @@
 			<artifactId>tomcat-catalina</artifactId>
 			<version>9.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.cloudinary</groupId>
+			<artifactId>cloudinary-http44</artifactId>
+			<version>1.24.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

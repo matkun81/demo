@@ -23,7 +23,9 @@
     <button type="submit">add</button>
 </form>
 <h2>Companies</h2>
-
+<div>
+<img th:href="@{slide1.jpg}">
+</div>
 <table id="companies" class="table table-striped">
     <thead>
     <tr>
@@ -40,7 +42,8 @@
         <td th:text="${company.description}"/>
         <td th:text="${company.topic}"/>
         <td th:text = "${company.finishSum}"/>
-        <td><img th:src="@{'/uploads/' + ${company.fileName}}" width="50" height="50"/></td>
+        <td><img th:src="${company.fileName}" width="50" height="50"
+        th:if="${company.fileName != null}"/></td>
         <td><form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser})}" class="form-horizontal" method="post">
             <input type="hidden" th:value="${company.id}" name="companyId">
             <button type="submit">delete</button>

@@ -10,14 +10,14 @@
 <a th:href="@{/login}"> log in</a>
 <a th:href="@{/user/{userId}(userId=${currentUser.id})}"
    th:if="${currentUser != null}"> UserPage </a>
-
 <section class="text-center mb-4">
     <div class="row wow fadeIn">
         <div class="card-deck">
             <div th:each="company : ${companyList}">
                 <div class="card">
                     <div class="view overlay">
-                        <img  th:src="@{'/uploads/' + ${company.fileName}}" width="250" height="250"/>
+                        <img th:src="@{${company.fileName}}" width="250" height="250"
+                        th:if="${company.fileName!=null}"/>
                         <a href="#">
                             <div class="mask rgba-white-slight"></div>
                         </a>
@@ -36,10 +36,6 @@
                             <strong th:text="${company.finishSum + '$'}"></strong>
                         </h4>
                     </div>
-                    <!--<form th:action="@{/add}" class="form-horizontal" method="post">-->
-                    <!--<input type="hidden" th:value="${product.id}" name="productId">-->
-                    <!--<button type="submit" class="btn btn-light">Добавить в корзину</button>-->
-                    <!--</form>-->
                 </div>
             </div>
         </div>
