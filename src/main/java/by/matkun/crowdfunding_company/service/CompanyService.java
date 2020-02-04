@@ -16,4 +16,6 @@ public interface CompanyService {
     void delete (Long id);
 
     void uploadImage(Company company, MultipartFile file) throws IOException;
+
+    float calculateAvgRate(float rate);
 }

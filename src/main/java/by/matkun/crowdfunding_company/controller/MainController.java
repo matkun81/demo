@@ -42,6 +42,13 @@ public class MainController {
         model.addAttribute("currentCompany", company);
         return "companyPage";
     }
+    @PostMapping("company/{companyId}")
+    public String addRating(@PathVariable (name = "companyId") Long companyId,@RequestParam float avgRate){
+        Company company = companyService.find(companyId);
+        company.setAvgRate(companyService.calculateAvgRate(avgRate));
+        companyService.save(company);
+        return "redirect:/company/{companyId}";
+    }
     @PostMapping("company/{companyId}/donate")
     public String donate(Bonus bonus, @PathVariable Long companyId,
                          @AuthenticationPrincipal User currentUser){

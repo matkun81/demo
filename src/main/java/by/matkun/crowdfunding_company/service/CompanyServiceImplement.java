@@ -20,6 +20,9 @@ public class CompanyServiceImplement implements CompanyService  {
     @Value("${upload.path}")
     private String uploadPath;
 
+    int count =0;
+    float currrentRate = 0;
+
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -65,6 +68,17 @@ public class CompanyServiceImplement implements CompanyService  {
             }
            String url = String.valueOf(uploadResult.get("url"));
             company.setFileName(url);
+        }
+    }
+
+    @Override
+    public float calculateAvgRate(float rate) {
+        count++;
+        currrentRate +=rate;
+        if (count==1){
+           return currrentRate;
+        }else {
+            return currrentRate / count;
         }
     }
 }
