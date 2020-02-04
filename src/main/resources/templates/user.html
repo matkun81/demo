@@ -9,12 +9,19 @@
 
 
 <body>
-
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h3 th:text="${currentUser.name}"/>
+<h3 th:text="${currentUser.username}"/>
+<tbody>
+<tr th:each= "bonus : ${currentUser.bonusList}">
+    <div th:text="${bonus.name}"></div>
+    <div th:text="${bonus.sumOfMoney}"></div>
+</tr>
+</tbody>
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
-<form th:action="@{/user/{userId}(userId = ${currentUser})}" enctype="multipart/form-data" class="form-horizontal" method="post">
+<form th:action="@{/user/{userId}(userId = ${currentUser.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
     <input type="text" name="name" placeholder="Input name of company">
     <input type="text" name="description" placeholder="Input description of company">
     <input type="text" name="topic" placeholder="Input topic of company">
@@ -23,9 +30,6 @@
     <button type="submit">add</button>
 </form>
 <h2>Companies</h2>
-<div>
-<img th:href="@{slide1.jpg}">
-</div>
 <table id="companies" class="table table-striped">
     <thead>
     <tr>
@@ -37,25 +41,26 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="company : ${listCompany}">
+    <tr th:each="company : ${listCompany}"
+    th:if="${company.activitiTable!=false}">
         <td th:text="${company.name}"/>
         <td th:text="${company.description}"/>
         <td th:text="${company.topic}"/>
         <td th:text = "${company.finishSum}"/>
         <td><img th:src="${company.fileName}" width="50" height="50"
         th:if="${company.fileName != null}"/></td>
-        <td><form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser})}" class="form-horizontal" method="post">
+        <td><form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
             <input type="hidden" th:value="${company.id}" name="companyId">
             <button type="submit">delete</button>
         </form>
         </td>
-        <td><a th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser})}"> edit
+        <td><a th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> edit
         </a>
         </td>
-        <td><a th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser})}"> News
+        <td><a th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}"> News
         </a>
         </td>
-        <td><a th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser})}"> Bonuses
+        <td><a th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}"> Bonuses
         </a>
         </td>
     </tr>

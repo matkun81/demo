@@ -23,16 +23,19 @@
                         </a>
                     </div>
                     <div class="card-body text-center">
-                        <a href="" class="grey-text">
-                            <h5>Category</h5>
+                        <a th:href="@{/company/{companyId}(companyId = ${company.id})}" class="grey-text">
+                            <h5 th:text = "${company.name}"/>
                         </a>
                         <h5>
                             <strong>
-                                <a href="#" class="dark-grey-text"><strong th:text="${company.name}"></strong>
-                                    <span class="badge badge-pill danger-color">NEW</span></a>
+                                <a href="#" class="dark-grey-text"><strong th:text="${company.description}"></strong>
+                                    </a>
                             </strong>
                         </h5>
                         <h4 class="font-weight-bold blue-text">
+                            <div th:with="result=${company.finishSum /company.finishSum}">
+                                <span th:text="${result}"></span>
+                            </div>
                             <strong th:text="${company.finishSum + '$'}"></strong>
                         </h4>
                     </div>

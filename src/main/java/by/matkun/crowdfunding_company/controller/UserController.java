@@ -25,7 +25,7 @@ public class UserController {
         List<Company> listCompany = user.getCompanies();
         model.addAttribute("listCompany",listCompany);
         model.addAttribute("isCurrentUser",currentUser.equals(user));
-        model.addAttribute("currentUser",user.getId());
+        model.addAttribute("currentUser",user);
         return "user";
     }
 
@@ -46,14 +46,24 @@ public class UserController {
     }
 
     @PostMapping("/editCompany/{companyId}")
-    public String updateCompany(Company company, @PathVariable(name = "companyId") Long companyId,@RequestParam Long owner){
+    public String updateCompany(Company company,
+                                @PathVariable(name = "companyId") Long companyId,
+                                @RequestParam Long owner,
+                                @RequestParam ("file") MultipartFile file) throws IOException{
         company.setId(companyId);
+        companyService.uploadImage(company,file);
         companyService.save(company);
         return "redirect:/user/" + owner;
     }
     @PostMapping("/deleteCompany")
     public String deleteCompany(@RequestParam Long companyId, @PathVariable (name = "userId") User user){
-        companyService.delete(companyId);
+        try {
+            companyService.delete(companyId);
+        } catch (Exception e){
+            Company company = companyService.find(companyId);
+            company.setActivitiTable(false);
+            companyService.save(company);
+        }
         return "redirect:/user/" + user.getId() ;
     }
 }

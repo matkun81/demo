@@ -1,7 +1,11 @@
 package by.matkun.crowdfunding_company.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
+
 
 @Entity
 public class Company {
@@ -23,6 +27,8 @@ public class Company {
 
     private String fileName;
 
+    private boolean isActivitiTable;
+
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Bonus> listBonus;
 
@@ -32,6 +38,10 @@ public class Company {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
+
+    public Company() {
+        this.isActivitiTable = true;
+    }
 
     public Long getId() {
         return id;
@@ -119,5 +129,13 @@ public class Company {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public boolean isActivitiTable() {
+        return isActivitiTable;
+    }
+
+    public void setActivitiTable(boolean activitiTable) {
+        isActivitiTable = activitiTable;
     }
 }

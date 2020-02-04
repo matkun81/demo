@@ -1,5 +1,7 @@
 package by.matkun.crowdfunding_company.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,7 +22,8 @@ public class User implements UserDetails {
 
     private String password;
 
-    @ManyToMany(mappedBy = "userList" ,fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Bonus> bonusList;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

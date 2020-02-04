@@ -1,5 +1,8 @@
 package by.matkun.crowdfunding_company.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,13 +16,15 @@ public class Bonus {
 
     private String description;
 
-    private double sumOfMoney;
+    private float sumOfMoney;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> userList;
 
     public Long getId() {
@@ -46,11 +51,11 @@ public class Bonus {
         this.description = description;
     }
 
-    public double getSumOfMoney() {
+    public float getSumOfMoney() {
         return sumOfMoney;
     }
 
-    public void setSumOfMoney(double sumOfMoney) {
+    public void setSumOfMoney(float sumOfMoney) {
         this.sumOfMoney = sumOfMoney;
     }
 
