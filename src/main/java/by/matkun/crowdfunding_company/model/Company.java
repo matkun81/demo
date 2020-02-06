@@ -1,8 +1,5 @@
 package by.matkun.crowdfunding_company.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -38,6 +35,9 @@ public class Company {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
+
+    @ManyToMany
+    private List<User> ownerRate;
 
     public Company() {
         this.isActivitiTable = true;
@@ -137,5 +137,13 @@ public class Company {
 
     public void setActivitiTable(boolean activitiTable) {
         isActivitiTable = activitiTable;
+    }
+
+    public List<User> getOwnerRate() {
+        return ownerRate;
+    }
+
+    public void setOwnerRate(List<User> ownerRate) {
+        this.ownerRate = ownerRate;
     }
 }

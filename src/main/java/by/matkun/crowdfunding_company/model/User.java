@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Company> companies;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Company> companyRating;
+
     public Long getId() {
         return id;
     }
@@ -72,6 +75,14 @@ public class User implements UserDetails {
 
     public void setBonusList(List<Bonus> bonusList) {
         this.bonusList = bonusList;
+    }
+
+    public List<Company> getCompanyRating() {
+        return companyRating;
+    }
+
+    public void setCompanyRating(List<Company> companyRating) {
+        this.companyRating = companyRating;
     }
 
     @Override

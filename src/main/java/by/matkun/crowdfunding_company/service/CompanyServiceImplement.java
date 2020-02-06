@@ -2,6 +2,7 @@ package by.matkun.crowdfunding_company.service;
 
 import by.matkun.crowdfunding_company.dao.CompanyRepository;
 import by.matkun.crowdfunding_company.model.Company;
+import by.matkun.crowdfunding_company.model.User;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
@@ -80,5 +81,15 @@ public class CompanyServiceImplement implements CompanyService  {
         }else {
             return currrentRate / count;
         }
+    }
+
+    @Override
+    public boolean checkUsersLike(Company company,User user) {
+        for (User i:company.getOwnerRate()) {
+         if (i.getId().equals(user.getId())){
+             return true;
+         }
+        }
+        return false;
     }
 }

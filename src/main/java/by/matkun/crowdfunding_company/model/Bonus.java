@@ -18,13 +18,11 @@ public class Bonus {
 
     private float sumOfMoney;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
 
     @ManyToMany
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> userList;
 
     public Long getId() {

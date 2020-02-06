@@ -20,6 +20,7 @@
         <input type="text"  name="avgRate" class="rating rating-loading" th:value="${currentCompany.avgRate}" data-size="sm" title="">
         <button type="submit">send</button>
     </form>
+    <h3 th:text ="${warningMessage}"/>
     <tbody>
     <tr th:each= "bonus : ${currentCompany.listBonus}">
         <h6>название бонуса:</h6>
