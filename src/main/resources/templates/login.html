@@ -8,17 +8,43 @@
     <title>Spring Security Example </title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Авторизация</h5>
+            <a href="/" class="close" type="button"  aria-label="Close">
+                <span aria-hidden="true">&times;</span></a>
+        </div>
+
+        <div class="modal-body">
+            <div class="container-fluid">
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputUserName">User Name</label>
+                        <input type ="text" class="form-control" id="exampleInputUserName" aria-describedby="userHelp" placeholder="User Name" name="username">
+                        <small id="userHelp" class="form-text text-muted">Input login</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPass">Password</label>
+                        <input type ="password" class="form-control" id="exampleInputPass" placeholder="Пароль" name="password">
+                        <small id="passHelp" class="form-text text-muted">Введите вашь пароль</small>
+                    </div>
+                    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                        Invalid username and password.
+                    </div>
+                    <div class="alert alert-primary" role="alert" th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <div class="float-right">
+                        <a class="btn btn-primary text-right" href="/registration" role="button">Registration</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

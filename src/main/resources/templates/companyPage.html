@@ -17,7 +17,7 @@
     <h3 th:text ="${currentCompany.name}"/>
     <h3 th:text ="${currentCompany.description}"/>
     <form th:action="@{/company/{companyId}(companyId = ${currentCompany.id})}" class="form-horizontal" method="post">
-        <input type="text"  name="avgRate" class="rating rating-loading" th:value="${currentCompany.avgRate}" data-size="sm" title="">
+        <input type="number"  name="avgRate" class="rating rating-loading" th:value="${currentCompany.avgRate}" data-size="sm" title="">
         <button type="submit">send</button>
     </form>
     <h3 th:text ="${warningMessage}"/>
