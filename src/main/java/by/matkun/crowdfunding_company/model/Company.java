@@ -1,7 +1,10 @@
 package by.matkun.crowdfunding_company.model;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 @Entity
@@ -29,15 +32,19 @@ public class Company {
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Bonus> listBonus;
 
-    @OneToMany (mappedBy = "company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "company",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<News> listNews;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @ManyToMany
-    private List<User> ownerRate;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "company_item_mapping",
+            joinColumns = {@JoinColumn(name = "company_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "item_name")
+    @Column(name = "rate")
+    private Map<User,Float> usersRate;
 
     public Company() {
         this.isActivitiTable = true;
@@ -139,11 +146,25 @@ public class Company {
         isActivitiTable = activitiTable;
     }
 
-    public List<User> getOwnerRate() {
-        return ownerRate;
+    public Map<User, Float> getUsersRate() {
+        return usersRate;
     }
 
-    public void setOwnerRate(List<User> ownerRate) {
-        this.ownerRate = ownerRate;
+    public void setUsersRate(Map<User, Float> usersRate) {
+        this.usersRate = usersRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return Objects.equals(id, company.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }

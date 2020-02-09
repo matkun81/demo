@@ -48,6 +48,7 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3">
+
         <div th:each="company : ${companyList}"
              th:if="${company.activitiTable!=false}">
         <div class="col mb-4">
@@ -59,19 +60,19 @@
                     </a>
                     <p th:text="${company.description}" class="card-text"></p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">The Aim:<strong th:text="${company.finishSum + '$'}">The Aim</strong></li>
-                        <li class="list-group-item"><div th:with="result=${company.currentSum /company.finishSum}">
+                        <li class="list-group-item">The Aim:<strong th:text="${company.currentSum + '$'}">The Aim</strong></li>
+                        <li class="list-group-item"><div th:with="result=${(company.currentSum /company.finishSum)*100}">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" th:aria-valuenow="${result}" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 75%"  th:aria-valuenow="${result}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <strong th:text="${result + '%'}">Current Sum</strong>
+                            <strong th:text="${result + '%'}"></strong>
                         </div></li>
-                        <li class="list-group-item">Vestibulum at eros</li>
                     </ul>
                 </div>
             </div>
             </div>
         </div>
+
 <!--<section class="text-center mb-4">-->
     <!--<div class="row wow fadeIn">-->
         <!--<div class="card-deck">-->
@@ -113,5 +114,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
 </html>

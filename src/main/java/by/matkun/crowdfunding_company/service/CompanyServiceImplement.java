@@ -21,9 +21,6 @@ public class CompanyServiceImplement implements CompanyService  {
     @Value("${upload.path}")
     private String uploadPath;
 
-    int count =0;
-    float currrentRate = 0;
-
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -73,23 +70,18 @@ public class CompanyServiceImplement implements CompanyService  {
     }
 
     @Override
-    public float calculateAvgRate(float rate) {
-        count++;
-        currrentRate +=rate;
-        if (count==1){
-           return currrentRate;
-        }else {
-            return currrentRate / count;
+    public String calculateAvgRate(Company company, User user, float rate) {
+        float sum = 0;
+        if (company.getUsersRate().containsKey(user)){
+            return String.valueOf(company.getAvgRate());
         }
+        company.getUsersRate().put(user,rate);
+        companyRepository.save(company);
+        for(Map.Entry<User, Float> item : company.getUsersRate().entrySet()){
+                sum+=item.getValue();
+            }
+            return String.valueOf(sum/company.getUsersRate().size());
     }
 
-    @Override
-    public boolean checkUsersLike(Company company,User user) {
-        for (User i:company.getOwnerRate()) {
-         if (i.getId().equals(user.getId())){
-             return true;
-         }
-        }
-        return false;
-    }
+
 }

@@ -45,15 +45,12 @@ public class MainController {
     @PostMapping("company/{companyId}")
     public String addRating(@AuthenticationPrincipal User user,@PathVariable (name = "companyId") Long companyId,@RequestParam String avgRate, Model model){
         Company company = companyService.find(companyId);
-        if (companyService.checkUsersLike(company, user) ||user==null){
+        if (user==null){
             model.addAttribute("warningMessage","You have already set rate to this company");
         }else {
-            List<User> userRate = company.getOwnerRate();
-            userRate.add(user);
-            company.setOwnerRate(userRate);
-            company.setAvgRate(companyService.calculateAvgRate(Float.parseFloat(avgRate)));
-            companyService.save(company);
-        }
+                company.setAvgRate(Float.parseFloat(companyService.calculateAvgRate(company, user, Float.parseFloat(avgRate))));
+                companyService.save(company);
+            }
         return "redirect:/company/{companyId}";
     }
     @PostMapping("company/{companyId}/donate")

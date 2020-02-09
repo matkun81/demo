@@ -17,10 +17,10 @@
     <h3 th:text ="${currentCompany.name}"/>
     <h3 th:text ="${currentCompany.description}"/>
     <form th:action="@{/company/{companyId}(companyId = ${currentCompany.id})}" class="form-horizontal" method="post">
-        <input type="number"  name="avgRate" class="rating rating-loading" th:value="${currentCompany.avgRate}" data-size="sm" title="">
+        <input type="number" name="avgRate" class="rating rating-loading" th:value="${currentCompany.avgRate}" data-size="sm">
+        <h3 th:text ="${warningMessage}"/>
         <button type="submit">send</button>
     </form>
-    <h3 th:text ="${warningMessage}"/>
     <tbody>
     <tr th:each= "bonus : ${currentCompany.listBonus}">
         <h6>название бонуса:</h6>
@@ -42,68 +42,5 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
-<script>
-    $(document).on('ready', function () {
-        $('.kv-gly-star').rating({
-            containerClass: 'is-star'
-        });
-        $('.kv-gly-heart').rating({
-            containerClass: 'is-heart',
-            defaultCaption: '{rating} hearts',
-            starCaptions: function (rating) {
-                return rating == 1 ? 'One heart' : rating + ' hearts';
-            },
-            filledStar: '<i class="glyphicon glyphicon-heart"></i>',
-            emptyStar: '<i class="glyphicon glyphicon-heart-empty"></i>'
-        });
-        $('.kv-fa').rating({
-            theme: 'krajee-fa',
-            filledStar: '<i class="fa fa-star"></i>',
-            emptyStar: '<i class="fa fa-star-o"></i>'
-        });
-        $('.kv-fa-heart').rating({
-            defaultCaption: '{rating} hearts',
-            starCaptions: function (rating) {
-                return rating == 1 ? 'One heart' : rating + ' hearts';
-            },
-            theme: 'krajee-fa',
-            filledStar: '<i class="fa fa-heart"></i>',
-            emptyStar: '<i class="fa fa-heart-o"></i>'
-        });
-        $('.kv-uni-star').rating({
-            theme: 'krajee-uni',
-            filledStar: '&#x2605;',
-            emptyStar: '&#x2606;'
-        });
-        $('.kv-uni-rook').rating({
-            theme: 'krajee-uni',
-            defaultCaption: '{rating} rooks',
-            starCaptions: function (rating) {
-                return rating == 1 ? 'One rook' : rating + ' rooks';
-            },
-            filledStar: '&#9820;',
-            emptyStar: '&#9814;'
-        });
-        $('.kv-svg').rating({
-            theme: 'krajee-svg',
-            filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
-            emptyStar: '<span class="krajee-icon krajee-icon-star"></span>'
-        });
-        $('.kv-svg-heart').rating({
-            theme: 'krajee-svg',
-            filledStar: '<span class="krajee-icon krajee-icon-heart"></span>',
-            emptyStar: '<span class="krajee-icon krajee-icon-heart"></span>',
-            defaultCaption: '{rating} hearts',
-            starCaptions: function (rating) {
-                return rating == 1 ? 'One heart' : rating + ' hearts';
-            },
-            containerClass: 'is-heart'
-        });
 
-        $('.rating,.kv-gly-star,.kv-gly-heart,.kv-uni-star,.kv-uni-rook,.kv-fa,.kv-fa-heart,.kv-svg,.kv-svg-heart').on(
-            'change', function () {
-                console.log('Rating selected: ' + $(this).val());
-            });
-    });
-</script>
 </html>

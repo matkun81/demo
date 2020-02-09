@@ -18,7 +18,6 @@ public interface CompanyService {
 
     void uploadImage(Company company, MultipartFile file) throws IOException;
 
-    float calculateAvgRate(float rate);
+    String calculateAvgRate(Company company, User user, float rate);
 
-    boolean checkUsersLike(Company company,User user);
 }

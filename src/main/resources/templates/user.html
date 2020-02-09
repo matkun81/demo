@@ -5,11 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>User Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/static/css/star-rating.css" media="all" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="/static/js/star-rating.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script>
 </head>
 <body>
 <div class="container">
@@ -42,48 +52,38 @@
             <input type="submit" class="btn btn-outline-secondary" value="Sign Out"/>
         </form>
     </nav>
-<tbody>
-<tr th:each= "bonus : ${currentUser.bonusList}">
-    <div th:text="${bonus.name}"></div>
-    <div th:text="${bonus.sumOfMoney}"></div>
-</tr>
-</tbody>
+    <H2 th:text="'Hello '+${currentUser.name}"></H2>
+
 <form th:action="@{/user/{userId}(userId = ${currentUser.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
     <div class="form-row">
         <div class="col-md-4 mb-3">
             <label>Name of Company</label>
     <input type="text" name="name" class="form-control" placeholder="Input name of company">
         </div>
-    </div>
-    <div class="form-row">
         <div class="col-md-6 mb-3">
             <label>Description</label>
     <textarea type="text" name="description" class="form-control"  placeholder="Input description of company"></textarea>
         </div>
     </div>
     <div class="form-row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             <label>Topic</label>
     <input type="text" name="topic" class="form-control" placeholder="Input topic of company">
         </div>
-    </div>
-    <div class="input-group">
-    <div class="form-row">
         <div class="col-md-2 mb-3">
             <label>Finish Sum of money</label>
     <input type="text" name="finishSum" class="form-control" th:value="0" placeholder="Input sum of money">
         </div>
-        </div>
+    </div>
+    <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label>Image</label>
+                <input id = "input-b1" name = "file" type = "file" class = "file" data-browse-on-zone-click = "true">
+            </div>
     </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <label>Image</label>
-    <input type="file" name="file" class="btn btn-outline-secondary" placeholder="Choice the image">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-    <button type="submit" class="btn btn-primary">Add Company</button>
+    <button type="submit" class="btn btn-primary">Create Company</button>
             </div>
         </div>
 </form>
@@ -95,6 +95,7 @@
         <th>Description</th>
         <th>Topic</th>
         <th>Finish sum of money</th>
+        <th>Image</th>
         <th>Changes</th>
     </tr>
     </thead>
@@ -107,23 +108,37 @@
         <td th:text = "${company.finishSum}"/>
         <td><img th:src="${company.fileName}" width="50" height="50"
         th:if="${company.fileName != null}"/></td>
-        <td><form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
-            <input type="hidden" th:value="${company.id}" name="companyId">
-            <button type="submit">delete</button>
-        </form>
+        <td><a class="btn btn-primary" th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> edit</a>
+            <form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
+                <input type="hidden" th:value="${company.id}" name="companyId">
+                <button class="btn btn-primary" type="submit">delete</button>
+            </form>
         </td>
-        <td><a th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> edit
+        <td><a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}"> News
         </a>
-        </td>
-        <td><a th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}"> News
-        </a>
-        </td>
-        <td><a th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}"> Bonuses
+        <a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}"> Bonuses
         </a>
         </td>
     </tr>
     </tbody>
 </table>
+    <h2>Bonuses</h2>
+    <table id="bonuses" class="table table-hover">
+        <thead>
+        <tr>
+            <th>Name</th >
+            <th>Description</th>
+            <th>Money</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bonus : ${currentUser.bonusList}">
+            <td th:text="${bonus.name}"/>
+            <td th:text="${bonus.description}"/>
+            <td th:text="${bonus.sumOfMoney}"/>
+        </tr>
+        </tbody>
+    </table>
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
