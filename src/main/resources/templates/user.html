@@ -19,6 +19,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script>
+    <!-- 1. Подключить CSS-файл Bootstrap 3 -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+    <!-- 2. Подключить CSS-файл библиотеки Bootstrap 3 DateTimePicker -->
+    <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css" />
+
 </head>
 <body>
 <div class="container">
@@ -76,6 +81,16 @@
             <label>Finish Sum of money</label>
     <input type="text" name="finishSum" class="form-control" th:value="0" placeholder="Input sum of money">
         </div>
+        <div class="col-md-3 mb-3">
+            <label>Date of finish company</label>
+            <div class="input-group" id="datetimepicker1">
+                <input type="text" name="dateOfFinishing" class="form-control" />
+                <span class="input-group-addon">
+      <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+            </div>
+        </div>
+
     </div>
     <div class="form-row">
             <div class="col-md-6 mb-3">
@@ -83,7 +98,7 @@
                 <input id = "input-b1" name = "file" type = "file" class = "file" data-browse-on-zone-click = "true">
             </div>
     </div>
-        <div class="form-row">
+            <div class="form-row">
             <div class="col-md-6 mb-3">
     <button type="submit" class="btn btn-primary">Create Company</button>
             </div>
@@ -104,7 +119,7 @@
     </thead>
     <tbody>
     <tr th:each="company : ${listCompany}"
-    th:if="${company.activitiTable!=false}">
+    th:if="${company.activityTable!=false}">
         <td th:text="${company.name}"/>
         <td th:text="${company.description}"/>
         <td th:text="${company.topic}"/>
@@ -143,5 +158,23 @@
         </tbody>
     </table>
 </div>
+
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/moment-with-locales.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            locale: 'ru',
+            stepping:10,
+            format: 'DD.MM.YYYY',
+            defaultDate: moment('01.11.2020').format('DD.MM.YYYY'),
+            daysOfWeekDisabled:[0,6]
+        });
+    });
+</script>
+</script>
 </body>
 </html>

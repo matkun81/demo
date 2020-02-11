@@ -5,6 +5,8 @@ import by.matkun.crowdfunding_company.model.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface CompanyService {
@@ -19,5 +21,7 @@ public interface CompanyService {
     void uploadImage(Company company, MultipartFile file) throws IOException;
 
     String calculateAvgRate(Company company, User user, float rate);
+
+    String calculateRestOfDays(String  dateOfFinishing, String dateOfStarting) throws ParseException;
 
 }

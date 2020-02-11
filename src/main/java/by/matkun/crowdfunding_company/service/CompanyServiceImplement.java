@@ -6,6 +6,7 @@ import by.matkun.crowdfunding_company.model.User;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 
@@ -81,6 +85,14 @@ public class CompanyServiceImplement implements CompanyService  {
                 sum+=item.getValue();
             }
             return String.valueOf(sum/company.getUsersRate().size());
+    }
+
+    @Override
+    public String calculateRestOfDays(String dateOfFinishing, String  dateOfStarting) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date firsDate= format.parse(dateOfFinishing);
+        Date secondDate = format.parse(dateOfStarting);
+        return String.valueOf(ChronoUnit.DAYS.between(secondDate.toInstant(),firsDate.toInstant()));
     }
 
 

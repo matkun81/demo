@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table id="news" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Title</th >
+        <th>Date of creating</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="news : ${listNews}">
+        <td><a th:href="@{/company/{companyId}/news/{newsId}(companyId = ${news.company.id}, newsId = ${news.id})}"><span th:text="${news.title}"/> </a></td>
+        <td th:text="${news.dateCreating.time}"/>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

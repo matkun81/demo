@@ -10,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,9 +34,9 @@ public class UserController {
     }
 
     @PostMapping
-    public String createNewCompany(Company company, @RequestParam("file") MultipartFile file,
+    public String createNewCompany(Company company,@RequestParam("file") MultipartFile file,
                                    @AuthenticationPrincipal User currentUser,
-                                   @PathVariable (name = "userId")User user) throws IOException {
+                                   @PathVariable (name = "userId")User user) throws IOException, ParseException {
         company.setOwner(user);
         companyService.uploadImage(company,file);
         companyService.save(company);

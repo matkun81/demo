@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+
+<body>
+<div class="table-responsive" th:fragment="listComment" id="resultsBlock">
+    <table id="comments" class="table table-hover">
+        <thead>
+        <tr>
+            <th>Comments</th >
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment : ${comments}">
+            <td th:text="${comment.text}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="content2">
+    This is Content 2
+</div>
+</body>
+</html>

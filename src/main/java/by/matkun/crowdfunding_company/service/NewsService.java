@@ -2,6 +2,7 @@ package by.matkun.crowdfunding_company.service;
 
 import by.matkun.crowdfunding_company.model.News;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public interface NewsService {
@@ -12,4 +13,6 @@ public interface NewsService {
     News save(News news);
 
     void delete (Long id);
+
+    List<News> findByDate(int day, int month);
 }

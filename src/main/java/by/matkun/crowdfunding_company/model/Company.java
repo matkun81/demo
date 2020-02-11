@@ -1,10 +1,8 @@
 package by.matkun.crowdfunding_company.model;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 @Entity
@@ -19,15 +17,21 @@ public class Company {
 
     private String topic;
 
+    private String tag;
+
     private float avgRate;
 
     private float finishSum;
 
     private float currentSum;
 
+    private String dateOfStart;
+
+    private String dateOfFinishing;
+
     private String fileName;
 
-    private boolean isActivitiTable;
+    private boolean isActivityTable;
 
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Bonus> listBonus;
@@ -46,8 +50,13 @@ public class Company {
     @Column(name = "rate")
     private Map<User,Float> usersRate;
 
+    @OneToMany (mappedBy = "company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> listComment;
+
     public Company() {
-        this.isActivitiTable = true;
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.YYYY");
+        this.isActivityTable = true;
+        this.dateOfStart = format.format(new Date());
     }
 
     public Long getId() {
@@ -110,6 +119,14 @@ public class Company {
         return currentSum;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     public void setCurrentSum(float currentSum) {
         this.currentSum = currentSum;
     }
@@ -138,12 +155,12 @@ public class Company {
         this.fileName = fileName;
     }
 
-    public boolean isActivitiTable() {
-        return isActivitiTable;
+    public boolean isActivityTable() {
+        return isActivityTable;
     }
 
     public void setActivitiTable(boolean activitiTable) {
-        isActivitiTable = activitiTable;
+        isActivityTable = activitiTable;
     }
 
     public Map<User, Float> getUsersRate() {
@@ -152,6 +169,30 @@ public class Company {
 
     public void setUsersRate(Map<User, Float> usersRate) {
         this.usersRate = usersRate;
+    }
+
+    public List<Comment> getListComment() {
+        return listComment;
+    }
+
+    public void setListComment(List<Comment> listComment) {
+        this.listComment = listComment;
+    }
+
+    public String getDateOfStart() {
+        return dateOfStart;
+    }
+
+    public void setDateOfStart(String dateOfStart) {
+        this.dateOfStart = dateOfStart;
+    }
+
+    public String getDateOfFinishing() {
+        return dateOfFinishing;
+    }
+
+    public void setDateOfFinishing(String dateOfFinishing) {
+        this.dateOfFinishing = dateOfFinishing;
     }
 
     @Override

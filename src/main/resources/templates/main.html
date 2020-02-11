@@ -54,7 +54,7 @@
     <div class="row row-cols-1 row-cols-md-3">
 
         <div th:each="company : ${companyList}"
-             th:if="${company.activitiTable!=false}">
+             th:if="${company.activityTable!=false}">
         <div class="col mb-4">
             <div class="card h-100">
                 <img th:src="@{${company.fileName}}" class="card-img-top" alt="">
