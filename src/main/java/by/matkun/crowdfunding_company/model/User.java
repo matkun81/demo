@@ -22,6 +22,10 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String facebookUserName;
+
+    private String gitHubUserName;
+
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Bonus> bonusList;
@@ -48,6 +52,22 @@ public class User implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFacebookUserName() {
+        return facebookUserName;
+    }
+
+    public void setFacebookUserName(String facebookUserName) {
+        this.facebookUserName = facebookUserName;
+    }
+
+    public String getGitHubUserName() {
+        return gitHubUserName;
+    }
+
+    public void setGitHubUserName(String gitHubUserName) {
+        this.gitHubUserName = gitHubUserName;
     }
 
     public Set<Role> getRoles() {

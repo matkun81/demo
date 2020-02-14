@@ -3,6 +3,7 @@ package by.matkun.crowdfunding_company.controller;
 import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.User;
 import by.matkun.crowdfunding_company.service.CompanyServiceImplement;
+import by.matkun.crowdfunding_company.service.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.crypto.Data;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,8 +26,12 @@ public class UserController {
     @Autowired
     private CompanyServiceImplement companyService;
 
+    @Autowired
+    UserServiceImplement userService;
+
     @GetMapping
-    public String getListCompany(@AuthenticationPrincipal User currentUser, @PathVariable (name = "userId") User user, Model model){
+    public String getListCompany(Principal principal, @PathVariable (name = "userId") User user, Model model){
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
         List<Company> listCompany = user.getCompanies();
         model.addAttribute("listCompany",listCompany);
         model.addAttribute("isCurrentUser",currentUser.equals(user));

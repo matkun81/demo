@@ -7,174 +7,218 @@
     <title>User Page</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script>
-    <!-- 1. Подключить CSS-файл Bootstrap 3 -->
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
-    <!-- 2. Подключить CSS-файл библиотеки Bootstrap 3 DateTimePicker -->
     <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css" />
+    <link href="/static/css/markdown-editor.css" media="all" rel="stylesheet" type="text/css"/>
+    <!-- Highlight JS style provided with plugin for code styling -->
+    <link href="/static/plugins/highlight/highlight.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <!-- jQuery JS Library -->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+    <!-- Twitter Emojis Plugin (if you need twitter emojis) -->
+    <script src="http://twemoji.maxcdn.com/2/twemoji.min.js?11.0"></script>
+    <script src="/static/plugins/purify/purify.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Main Library -->
+    <script src="/static/plugins/markdown-it/markdown-it.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Definition List Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-deflist.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Footnote Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-footnote.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Abbreviation Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-abbr.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Subscript Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-sub.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Superscript Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-sup.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Underline/Inserted Text Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-ins.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Mark Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-mark.min.js" type="text/javascript"></script>
+    <!-- Markdown IT SmartArrows Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-smartarrows.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Checkbox Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-checkbox.min.js" type="text/javascript"></script>
+    <!-- Markdown IT East Asian Characters Line Break Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-cjk-breaks.min.js" type="text/javascript"></script>
+    <!-- Markdown IT Emoji Plugin -->
+    <script src="/static/plugins/markdown-it/markdown-it-emoji.min.js" type="text/javascript"></script>
+    <!-- Highlight JS Main Plugin Library for code styling -->
+    <script src="/static/plugins/highlight/highlight.min.js" type="text/javascript"></script>
+    <!-- Bootstrap 4.x Complete Bundle Library (including Popper) -->
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" type="text/javascript"></script>-->
+    <!-- Krajee Markdown Editor Main Library -->
+    <script src="/static/js/markdown-editor.js" type="text/javascript"></script>
+    <!-- Optionally include theme.js script or theme.css for a different theme if needed -->
+    <!-- script src="/path/to/themes/fa5/theme.js" type="text/javascript"></script -->
+    <!-- Optionally include localization script for your language if needed -->
+    <!-- script src="/path/to/js/locales/en.js" type="text/javascript"></script>-->
+    <script src="/static/js/moment-with-locales.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+    </head>
+    <body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="/">MatkunIndustries</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-</head>
-<body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" href="/">MatkunIndustries</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin">AdminPanel <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/{userId}(userId=${currentUser.id})}"
-                       th:if="${currentUser != null}"> <span th:text="${currentUser.name}"/> </a>
-                </li>
-            </ul>
-        </div>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <a class="btn btn-outline-secondary" th:href="@{/login}" role="button">Log in</a>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" class="btn btn-outline-secondary" value="Sign Out"/>
-        </form>
-    </nav>
-    <H2 th:text="'Hello '+${currentUser.name}"></H2>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Create a new company
-    </button>
-    <div class="collapse" id="collapseExample">
-<form th:action="@{/user/{userId}(userId = ${currentUser.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label>Name of Company</label>
-    <input type="text" name="name" class="form-control" placeholder="Input name of company">
-        </div>
-        <div class="col-md-6 mb-3">
-            <label>Description</label>
-    <textarea type="text" name="description" class="form-control"  placeholder="Input description of company"></textarea>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label>Topic</label>
-    <input type="text" name="topic" class="form-control" placeholder="Input topic of company">
-        </div>
-        <div class="col-md-2 mb-3">
-            <label>Finish Sum of money</label>
-    <input type="text" name="finishSum" class="form-control" th:value="0" placeholder="Input sum of money">
-        </div>
-        <div class="col-md-3 mb-3">
-            <label>Date of finish company</label>
-            <div class="input-group" id="datetimepicker1">
-                <input type="text" name="dateOfFinishing" class="form-control" />
-                <span class="input-group-addon">
-      <span class="glyphicon glyphicon-calendar"></span>
-    </span>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">AdminPanel <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/user/{userId}(userId=${currentUser.id})}"
+                           th:if="${currentUser != null}"> <span th:text="${currentUser.name}"/> </a>
+                    </li>
+                </ul>
             </div>
-        </div>
-
-    </div>
-    <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label>Image</label>
-                <input id = "input-b1" name = "file" type = "file" class = "file" data-browse-on-zone-click = "true">
-            </div>
-    </div>
-            <div class="form-row">
-            <div class="col-md-6 mb-3">
-    <button type="submit" class="btn btn-primary">Create Company</button>
-            </div>
-        </div>
-</form>
-    </div>
-<h2>Companies</h2>
-<table id="companies" class="table table-hover">
-    <thead>
-    <tr>
-        <th>Name</th >
-        <th>Description</th>
-        <th>Topic</th>
-        <th>Finish sum of money</th>
-        <th>Image</th>
-        <th>Changes</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="company : ${listCompany}"
-    th:if="${company.activityTable!=false}">
-        <td th:text="${company.name}"/>
-        <td th:text="${company.description}"/>
-        <td th:text="${company.topic}"/>
-        <td th:text = "${company.finishSum}"/>
-        <td><img th:src="${company.fileName}" width="50" height="50"
-        th:if="${company.fileName != null}"/></td>
-        <td><a class="btn btn-primary" th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> edit</a>
-            <form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
-                <input type="hidden" th:value="${company.id}" name="companyId">
-                <button class="btn btn-primary" type="submit">delete</button>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
-        </td>
-        <td><a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}"> News
-        </a>
-        <a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}"> Bonuses
-        </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-    <h2>Bonuses</h2>
-    <table id="bonuses" class="table table-hover">
+            <a class="btn btn-outline-secondary" th:href="@{/login}" role="button">Log in</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" class="btn btn-outline-secondary" value="Sign Out"/>
+            </form>
+        </nav>
+        <H2 th:text="'Hello '+${currentUser.name}"></H2>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Create a new company
+        </button>
+        <div class="collapse" id="collapseExample">
+    <form th:action="@{/user/{userId}(userId = ${currentUser.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>Name of Company</label>
+        <input type="text" name="name" class="form-control" placeholder="Input name of company">
+            </div>
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                <label>Description</label>
+        <textarea type="text" id='editor-ru' name="description" class="form-control"  placeholder="Input description of company" rows='15'></textarea>
+            </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>Topic</label>
+        <input type="text" name="topic" class="form-control" placeholder="Input topic of company">
+            </div>
+            <div class="col-md-2 mb-3">
+                <label>Finish Sum of money</label>
+        <input type="text" name="finishSum" class="form-control" th:value="0" placeholder="Input sum of money">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label>Date of finish company</label>
+                <div class="input-group" id="datetimepicker1">
+                    <input type="text" name="dateOfFinishing" class="form-control" />
+                    <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label>Image</label>
+                    <input id = "input-b1" name = "file" type = "file" class = "file" data-browse-on-zone-click = "true">
+                </div>
+        </div>
+                <div class="form-row">
+                <div class="col-md-6 mb-3">
+        <button type="submit" class="btn btn-primary">Create Company</button>
+                </div>
+            </div>
+    </form>
+        </div>
+    <h2>Companies</h2>
+    <table id="companies" class="table table-hover">
         <thead>
         <tr>
             <th>Name</th >
             <th>Description</th>
-            <th>Money</th>
+            <th>Topic</th>
+            <th>Finish sum of money</th>
+            <th>Image</th>
+            <th>Changes</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bonus : ${currentUser.bonusList}">
-            <td th:text="${bonus.name}"/>
-            <td th:text="${bonus.description}"/>
-            <td th:text="${bonus.sumOfMoney}"/>
+        <tr th:each="company : ${listCompany}"
+        th:if="${company.activityTable!=false}">
+            <td th:text="${company.name}"/>
+            <td th:text="${company.description}"/>
+            <td th:text="${company.topic}"/>
+            <td th:text = "${company.finishSum}"/>
+            <td><img th:src="${company.fileName}" width="50" height="50"
+            th:if="${company.fileName != null}"/></td>
+            <td><a class="btn btn-primary" th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> edit</a>
+                <form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
+                    <input type="hidden" th:value="${company.id}" name="companyId">
+                    <button class="btn btn-primary" type="submit">delete</button>
+                </form>
+            </td>
+            <td><a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}"> News
+            </a>
+            <a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}"> Bonuses
+            </a>
+            </td>
         </tr>
         </tbody>
     </table>
-</div>
+        <h2>Bonuses</h2>
+        <table id="bonuses" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Name</th >
+                <th>Description</th>
+                <th>Money</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bonus : ${currentUser.bonusList}">
+                <td th:text="${bonus.name}"/>
+                <td th:text="${bonus.description}"/>
+                <td th:text="${bonus.sumOfMoney}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/moment-with-locales.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            locale: 'ru',
-            stepping:10,
-            format: 'DD.MM.YYYY',
-            defaultDate: moment('01.11.2020').format('DD.MM.YYYY'),
-            daysOfWeekDisabled:[0,6]
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                locale: 'ru',
+                stepping:10,
+                format: 'DD.MM.YYYY',
+                defaultDate: moment('01.11.2020').format('DD.MM.YYYY'),
+                daysOfWeekDisabled:[0,6]
+            });
         });
-    });
-</script>
-</script>
-</body>
-</html>
+    </script>
+    <script type="text/javascript">
+        $('#editor-ru').markdownEditor({
+            language: 'ru'
+        });
+        </script>
+    </body>
+    </html>

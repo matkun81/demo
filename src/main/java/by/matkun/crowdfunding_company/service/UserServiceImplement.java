@@ -42,7 +42,16 @@ public class UserServiceImplement implements UserService, UserDetailsService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepository.findByName(s);
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        if(userRepository.findByName(name)!=null){
+            return userRepository.findByName(name);
+        }
+        if (userRepository.findByFacebookUserName(name)!=null){
+            return userRepository.findByFacebookUserName(name);
+        }
+        if (userRepository.findByGitHubUserName(name)!=null){
+            return userRepository.findByGitHubUserName(name);
+        }
+        return null;
     }
 }

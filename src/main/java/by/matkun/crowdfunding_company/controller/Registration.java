@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class Registration {
     }
 
     @PostMapping("/registration")
-    public String addNewUser(User user, Map<String, Object> model) {
+    public String addNewUser(User user, Principal principal, Map<String, Object> model) {
         User userFromDb = userService.findByName(user.getName());
         if (userFromDb != null) {
             model.put("message", "User exist");

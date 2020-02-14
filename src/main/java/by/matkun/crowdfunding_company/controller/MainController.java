@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
+import java.security.Principal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -34,19 +32,20 @@ public class MainController {
     private NewsServiceImplement newsService;
 
     @GetMapping
-    public String getListCompany(@AuthenticationPrincipal User currentUser, Model model){
+    public String getListCompany(Principal principal, Model model){
         model.addAttribute("companyList",companyService.findAll());
-        if (currentUser==null){
+      if (principal==null){
             model.addAttribute("currentUser",null);
         }else {
-            User user = userServiceImplement.findByName(currentUser.getUsername());
+            User user = (User) userServiceImplement.loadUserByUsername(principal.getName());
             model.addAttribute("currentUser", user);
         }
         return "main";
     }
     @GetMapping("company/{companyId}")
-    public String getCompany(@AuthenticationPrincipal User currentUser,@PathVariable (name = "companyId")Company company, Model model) throws ParseException {
-        model.addAttribute("currentUser",currentUser);
+    public String getCompany(Principal principal,@PathVariable (name = "companyId")Company company, Model model) throws ParseException {
+        User user = (User) userServiceImplement.loadUserByUsername(principal.getName());
+        model.addAttribute("currentUser",user);
         model.addAttribute("currentCompany", company);
         model.addAttribute("currentNews",company.getListNews());
         model.addAttribute("comments",company.getListComment());

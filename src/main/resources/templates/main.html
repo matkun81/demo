@@ -39,9 +39,11 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <a class="btn btn-outline-secondary" th:href="@{/login}" role="button">Log in</a>
+    <a class="btn btn-outline-secondary" th:href="@{/login}" role="button"
+    th:if="${currentUser==null}">Log in</a>
     <form th:action="@{/logout}" method="post">
-        <input type="submit" class="btn btn-outline-secondary" value="Sign Out"/>
+        <input type="submit" class="btn btn-outline-secondary" value="Sign Out"
+               th:if="${currentUser!=null}"/>
     </form>
 </nav>
     <div class="jumbotron">
@@ -79,43 +81,6 @@
             </div>
             </div>
         </div>
-
-<!--<section class="text-center mb-4">-->
-    <!--<div class="row wow fadeIn">-->
-        <!--<div class="card-deck">-->
-            <!--<div th:each="company : ${companyList}"-->
-                 <!--th:if="${company.activitiTable!=false}">-->
-                <!--<div class="card">-->
-                    <!--<div class="view overlay">-->
-                        <!--<img th:src="@{${company.fileName}}" width="250" height="250"-->
-                        <!--th:if="${company.fileName!=null}"/>-->
-                        <!--<a href="#">-->
-                            <!--<div class="mask rgba-white-slight"></div>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="card-body text-center">-->
-                        <!--<a th:href="@{/company/{companyId}(companyId = ${company.id})}" class="grey-text">-->
-                            <!--<h5 th:text = "${company.name}"/>-->
-                        <!--</a>-->
-                        <!--<h5>-->
-                            <!--<strong>-->
-                                <!--<a href="#" class="dark-grey-text"><strong th:text="${company.description}"></strong>-->
-                                    <!--</a>-->
-                            <!--</strong>-->
-                        <!--</h5>-->
-                        <!--<h4 class="font-weight-bold blue-text">-->
-                            <!--<div th:with="result=${company.finishSum /company.finishSum}">-->
-                                <!--<span th:text="${result}"></span>-->
-                            <!--</div>-->
-                            <!--<strong th:text="${company.finishSum + '$'}"></strong>-->
-                        <!--</h4>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</section>-->
-
 </div>
 </div>
 </body>
