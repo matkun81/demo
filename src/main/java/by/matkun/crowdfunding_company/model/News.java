@@ -1,6 +1,11 @@
 package by.matkun.crowdfunding_company.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Calendar;
@@ -8,13 +13,18 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Entity
+@Getter
+@Setter
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String title;
 
+    @NotBlank
+    @Length(max = 10000, message = "This text is too long")
     private String text;
 
     private GregorianCalendar dateCreating;
@@ -23,33 +33,8 @@ public class News {
     @JoinColumn(name = "company_id")
     private Company company;
 
-
-    public Long getId() {
-        return id;
-    }
-
     public News() {
         this.dateCreating = new GregorianCalendar();
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public GregorianCalendar getDateCreating() {
@@ -59,18 +44,8 @@ public class News {
         return String.valueOf(Month.of(dateCreating.getTime().getMonth()+1)).substring(0,3);
     }
     public String getDay() {
-        return String.valueOf(DayOfWeek.of(dateCreating.getTime().getDay()));
+        return String.valueOf(DayOfWeek.of(dateCreating.getTime().getDay()+7));
     }
 
-    public void setDateCreating(GregorianCalendar dateCreating) {
-        this.dateCreating = dateCreating;
-    }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
 }

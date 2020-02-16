@@ -2,13 +2,16 @@ package by.matkun.crowdfunding_company.controller;
 
 import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.News;
+import by.matkun.crowdfunding_company.model.User;
 import by.matkun.crowdfunding_company.service.CompanyServiceImplement;
 import by.matkun.crowdfunding_company.service.NewsServiceImplement;
+import by.matkun.crowdfunding_company.service.UserServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -19,13 +22,17 @@ public class NewsController {
     private NewsServiceImplement newsService;
 
     @Autowired
-    CompanyServiceImplement companyService;
+    private CompanyServiceImplement companyService;
 
+    @Autowired
+    private UserServiceImplement userService;
     @GetMapping
-    public String getNews(Model model, @PathVariable Long companyId,@PathVariable Long userId){
-        List<News> newsSet = companyService.find(companyId).getListNews();
-        model.addAttribute("listNews", newsSet);
-        model.addAttribute("companyId",companyId);
+    public String getNews(Principal principal,@PathVariable (name = "companyId") Company company, @PathVariable Long userId, Model model){
+        List<News> newsList = company.getListNews();
+        User currentUser = userService.findAuthorizedUser(principal);
+        model.addAttribute("currentUser",currentUser);
+        model.addAttribute("listNews", newsList);
+        model.addAttribute("companyId",company.getId());
         model.addAttribute("userId",userId);
         return "newsPage";
     }
@@ -37,8 +44,10 @@ public class NewsController {
     }
 
     @GetMapping("/editNews/{newsId}")
-    public String editNews(@PathVariable Long newsId,@PathVariable Long userId,@PathVariable Long companyId, Model model){
+    public String editNews(Principal principal,@PathVariable Long newsId,@PathVariable Long userId,@PathVariable Long companyId, Model model){
         News currentNews = newsService.find(newsId);
+        User currentUser = userService.findAuthorizedUser(principal);
+        model.addAttribute("currentUser",currentUser);
         model.addAttribute("currentNews", currentNews);
         model.addAttribute("userId", userId);
         model.addAttribute("companyId",companyId);

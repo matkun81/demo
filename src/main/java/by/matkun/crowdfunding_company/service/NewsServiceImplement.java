@@ -1,6 +1,7 @@
 package by.matkun.crowdfunding_company.service;
 
 import by.matkun.crowdfunding_company.dao.NewsRepository;
+import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,14 +36,16 @@ public class NewsServiceImplement implements NewsService {
     }
 
     @Override
-    public List<News> findByDate(int day, int  month) {
-        List<News> bufferList = new ArrayList<>();
-        List<News> listNews = newsRepository.findAll();
-        for (News i: listNews) {
+    public List<News> findByDate(News news) {
+        int day = news.getDateCreating().getTime().getDay();
+        int month = news.getDateCreating().getTime().getMonth();
+        List<News> listNewsByDate = new ArrayList<>();
+        List<News> listNewsFromDb = newsRepository.findAll();
+        for (News i: listNewsFromDb) {
             if (i.getDateCreating().getTime().getDay()==day && i.getDateCreating().getTime().getMonth()==month){
-                bufferList.add(i);
+                listNewsByDate.add(i);
             }
         }
-        return bufferList;
+        return listNewsByDate;
     }
 }

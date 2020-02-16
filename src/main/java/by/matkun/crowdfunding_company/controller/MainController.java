@@ -17,7 +17,7 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private UserServiceImplement userServiceImplement;
+    private UserServiceImplement userService;
 
     @Autowired
     private CompanyServiceImplement companyService;
@@ -31,71 +31,68 @@ public class MainController {
     @Autowired
     private NewsServiceImplement newsService;
 
+    @GetMapping("/test")
+    public String any(){
+
+        return "test";
+    }
     @GetMapping
     public String getListCompany(Principal principal, Model model){
         model.addAttribute("companyList",companyService.findAll());
-      if (principal==null){
-            model.addAttribute("currentUser",null);
-        }else {
-            User user = (User) userServiceImplement.loadUserByUsername(principal.getName());
-            model.addAttribute("currentUser", user);
-        }
+        model.addAttribute("currentUser",userService.findAuthorizedUser(principal));
         return "main";
     }
     @GetMapping("company/{companyId}")
     public String getCompany(Principal principal,@PathVariable (name = "companyId")Company company, Model model) throws ParseException {
-        User user = (User) userServiceImplement.loadUserByUsername(principal.getName());
-        model.addAttribute("currentUser",user);
+        model.addAttribute("currentUser", userService.findAuthorizedUser(principal));
         model.addAttribute("currentCompany", company);
         model.addAttribute("currentNews",company.getListNews());
         model.addAttribute("comments",company.getListComment());
-        model.addAttribute("countDays",companyService.calculateRestOfDays(company.getDateOfFinishing(),company.getDateOfStart()));
+        model.addAttribute("countDays",companyService.getDurationCompany(company));
         return "companyPage";
     }
     @GetMapping("content/listComment/{companyId}")
-    public String getComments(Model model,@PathVariable (name = "companyId") Company company){
+    public String getComments(@PathVariable (name = "companyId") Company company,Model model){
         model.addAttribute("comments",company.getListComment());
         return "content :: listComment";
     }
 
     @GetMapping("company/{companyId}/news/{newsId}")
-    public String getNews(@PathVariable (name = "newsId")News news, Model model){
+    public String getNews(Principal principal,@PathVariable (name = "newsId")News news, Model model){
+        model.addAttribute("currentUser", userService.findAuthorizedUser(principal));
         model.addAttribute("currentNews",newsService.find(news.getId()));
         return "newsViewPage";
     }
 
     @GetMapping("company/news/{newsId}")
-    public String getByDateNews(Model model,@PathVariable(name ="newsId") News news){
-        model.addAttribute("listNews",newsService.findByDate(news.getDateCreating().getTime().getDay(),news.getDateCreating().getTime().getMonth()));
+    public String getByDateNews(Principal principal,Model model,@PathVariable(name ="newsId") News news){
+        model.addAttribute("currentUser", userService.findAuthorizedUser(principal));
+        model.addAttribute("listNews",newsService.findByDate(news));
         return "sortByDateNews";
     }
     @PostMapping("company/{companyId}")
-    public String addRating(@AuthenticationPrincipal User user,@PathVariable (name = "companyId") Long companyId,@RequestParam String avgRate, Model model){
-        Company company = companyService.find(companyId);
+    public String addRating(Principal principal,@PathVariable (name = "companyId") Company company,@RequestParam String avgRate, Model model){
+        User user = userService.findAuthorizedUser(principal);
         if (user==null){
             model.addAttribute("warningMessage","You have already set rate to this company");
         }else {
-                company.setAvgRate(Float.parseFloat(companyService.calculateAvgRate(company, user, Float.parseFloat(avgRate))));
+                company.setAvgRate(Float.parseFloat(companyService.getAvgRate(company, user, Float.parseFloat(avgRate))));
                 companyService.save(company);
             }
         return "redirect:/company/{companyId}";
     }
     @PostMapping("company/{companyId}/comments")
-    public String addComments(Comment comment, @PathVariable Long companyId){
-        comment.setCompany(companyService.find(companyId));
+    public String addComments(Comment comment, @PathVariable (name = "companyId") Company company){
+        comment.setCompany(company);
         commentService.save(comment);
         return "redirect:/company/{companyId}";
     }
     @PostMapping("company/{companyId}/donate")
-    public String donate(Bonus bonus, @PathVariable Long companyId,
-                         @AuthenticationPrincipal User currentUser){
-        User user = userServiceImplement.find(currentUser.getId());
+    public String donate(Principal principal, Bonus bonus, @PathVariable (name = "companyId") Company company){
+        User user = userService.findAuthorizedUser(principal);
         Bonus currentBonus = bonusService.find(bonus.getId());
-        List<Bonus> listBonus = user.getBonusList();
-        listBonus.add(currentBonus);
-        user.setBonusList(listBonus);
-        userServiceImplement.save(user);
-        Company company = companyService.find(companyId);
+        userService.addBonusToUser(user,currentBonus);
+        userService.save(user);
         company.setCurrentSum(company.getCurrentSum()+currentBonus.getSumOfMoney());
         companyService.save(company);
         return "redirect:/company/{companyId}";

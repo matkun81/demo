@@ -1,128 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>User Page</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script>
     <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css" />
+
+    <script src="/static/js/moment-with-locales.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+    <!--Tags-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
     <link href="/static/css/markdown-editor.css" media="all" rel="stylesheet" type="text/css"/>
-    <!-- Highlight JS style provided with plugin for code styling -->
     <link href="/static/plugins/highlight/highlight.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <!-- jQuery JS Library -->
-    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
-    <!-- Twitter Emojis Plugin (if you need twitter emojis) -->
     <script src="http://twemoji.maxcdn.com/2/twemoji.min.js?11.0"></script>
     <script src="/static/plugins/purify/purify.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Main Library -->
     <script src="/static/plugins/markdown-it/markdown-it.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Definition List Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-deflist.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Footnote Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-footnote.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Abbreviation Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-abbr.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Subscript Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-sub.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Superscript Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-sup.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Underline/Inserted Text Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-ins.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Mark Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-mark.min.js" type="text/javascript"></script>
-    <!-- Markdown IT SmartArrows Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-smartarrows.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Checkbox Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-checkbox.min.js" type="text/javascript"></script>
-    <!-- Markdown IT East Asian Characters Line Break Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-cjk-breaks.min.js" type="text/javascript"></script>
-    <!-- Markdown IT Emoji Plugin -->
     <script src="/static/plugins/markdown-it/markdown-it-emoji.min.js" type="text/javascript"></script>
-    <!-- Highlight JS Main Plugin Library for code styling -->
     <script src="/static/plugins/highlight/highlight.min.js" type="text/javascript"></script>
-    <!-- Bootstrap 4.x Complete Bundle Library (including Popper) -->
-    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" type="text/javascript"></script>-->
-    <!-- Krajee Markdown Editor Main Library -->
     <script src="/static/js/markdown-editor.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Optionally include theme.js script or theme.css for a different theme if needed -->
     <!-- script src="/path/to/themes/fa5/theme.js" type="text/javascript"></script -->
     <!-- Optionally include localization script for your language if needed -->
     <!-- script src="/path/to/js/locales/en.js" type="text/javascript"></script>-->
-    <script src="/static/js/moment-with-locales.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+    <!--Table-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
     </head>
     <body>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="/">MatkunIndustries</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin">AdminPanel <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/user/{userId}(userId=${currentUser.id})}"
-                           th:if="${currentUser != null}"> <span th:text="${currentUser.name}"/> </a>
-                    </li>
-                </ul>
-            </div>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <a class="btn btn-outline-secondary" th:href="@{/login}" role="button">Log in</a>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" class="btn btn-outline-secondary" value="Sign Out"/>
-            </form>
-        </nav>
-        <H2 th:text="'Hello '+${currentUser.name}"></H2>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Create a new company
-        </button>
-        <div class="collapse" id="collapseExample">
+        <div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
+        <H2 th:text="'Hello '+${currentUser.name}+'!'"></H2>
+        <!--<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
+            <!--Create a new company-->
+        <!--</button>-->
+        <!--<div class="collapse" id="collapseExample">-->
+        <div>
     <form th:action="@{/user/{userId}(userId = ${currentUser.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label>Name of Company</label>
-        <input type="text" name="name" class="form-control" placeholder="Input name of company">
+        <input type="text" name="name" class="form-control" required placeholder="Input name of company">
+            </div>
+            <div class="col-md-2 mb-3">
+                <label>Tag</label>
+                <input class="input-tags" name="tag" type="text" data-role="tagsinput" placeholder="Input tag"/>
             </div>
             <div class="form-row">
                 <div class="col-md-12 mb-3">
                 <label>Description</label>
-        <textarea type="text" id='editor-ru' name="description" class="form-control"  placeholder="Input description of company" rows='15'></textarea>
+        <textarea id='editor-ru' name="description" class="form-control" required placeholder="Input description of company" th:rows='15'></textarea>
             </div>
             </div>
         </div>
         <div class="form-row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-6">
                 <label>Topic</label>
-        <input type="text" name="topic" class="form-control" placeholder="Input topic of company">
-            </div>
+            <select class="custom-select custom-select-lg mb-3" required name="topic" >
+                <option selected></option>
+                <option value="Electronics">Electronics</option>
+                <option value="Education">Education</option>
+                <option value="Machine">Machine</option>
+                <option value="IT">IT</option>
+            </select>
+                </div>
             <div class="col-md-2 mb-3">
                 <label>Finish Sum of money</label>
-        <input type="text" name="finishSum" class="form-control" th:value="0" placeholder="Input sum of money">
+        <input type="text" name="finishSum" class="form-control" required placeholder="Input sum of money">
             </div>
             <div class="col-md-3 mb-3">
                 <label>Date of finish company</label>
@@ -149,14 +119,22 @@
     </form>
         </div>
     <h2>Companies</h2>
-    <table id="companies" class="table table-hover">
+    <table id="companyTable"
+           data-toggle="table"
+           data-sort-class="table-active"
+           data-sortable="true"
+           data-search="true"
+           data-search-align="left"
+           data-remember-order="true"
+           data-height="400"
+           >
         <thead>
         <tr>
-            <th>Name</th >
-            <th>Description</th>
-            <th>Topic</th>
-            <th>Finish sum of money</th>
-            <th>Image</th>
+            <th data-sortable="true">Name</th >
+            <th data-sortable="true">Description</th>
+            <th data-sortable="true">Topic</th>
+            <th data-sortable="true">Finish sum of money</th>
+            <th >Image</th>
             <th>Changes</th>
         </tr>
         </thead>
@@ -169,22 +147,34 @@
             <td th:text = "${company.finishSum}"/>
             <td><img th:src="${company.fileName}" width="50" height="50"
             th:if="${company.fileName != null}"/></td>
-            <td><a class="btn btn-primary" th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> edit</a>
-                <form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
-                    <input type="hidden" th:value="${company.id}" name="companyId">
-                    <button class="btn btn-primary" type="submit">delete</button>
-                </form>
-            </td>
-            <td><a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}"> News
-            </a>
-            <a class="btn btn-primary" th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}"> Bonuses
-            </a>
+            <td><div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Company
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu3">
+                <a class="dropdown-item" th:href="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser.id})}"> Edit</a>
+                <a class="dropdown-item" th:href="@{/user/{userId}/company/{companyId}/news(companyId =${company.id},userId =${currentUser.id})}">News</a>
+                <a class="dropdown-item" th:href="@{/user/{userId}/company/{companyId}/bonus(companyId =${company.id},userId =${currentUser.id})}">Bonus</a>
+                    <form th:action="@{/user/{userId}/deleteCompany(userId = ${currentUser.id})}" class="form-horizontal" method="post">
+                        <input type="hidden" th:value="${company.id}" name="companyId">
+                        <button class="btn btn-primary" type="submit">delete</button>
+                    </form>
+                </div>
+            </div>
             </td>
         </tr>
         </tbody>
     </table>
         <h2>Bonuses</h2>
-        <table id="bonuses" class="table table-hover">
+        <table id="tableBonus"
+               data-toggle="tableBonus"
+               data-sort-class="table-active"
+               data-sortable="true"
+               data-search="true"
+               data-search-align="left"
+               data-remember-order="true"
+               data-height="400">
             <thead>
             <tr>
                 <th>Name</th >
@@ -203,7 +193,6 @@
     </div>
 
 
-
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({
@@ -220,5 +209,9 @@
             language: 'ru'
         });
         </script>
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
     </body>
     </html>

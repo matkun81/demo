@@ -72,7 +72,7 @@ public class CompanyServiceImplement implements CompanyService  {
     }
 
     @Override
-    public String calculateAvgRate(Company company, User user, float rate) {
+    public String getAvgRate(Company company, User user, float rate) {
         float sum = 0;
         if (company.getUsersRate().containsKey(user)){
             return String.valueOf(company.getAvgRate());
@@ -86,10 +86,10 @@ public class CompanyServiceImplement implements CompanyService  {
     }
 
     @Override
-    public String calculateRestOfDays(String dateOfFinishing, String  dateOfStarting) throws ParseException {
+    public String getDurationCompany(Company company) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date firsDate= format.parse(dateOfFinishing);
-        Date secondDate = format.parse(dateOfStarting);
+        Date firsDate= format.parse(company.getDateOfFinishing());
+        Date secondDate = format.parse(company.getDateOfStart());
         return String.valueOf(ChronoUnit.DAYS.between(secondDate.toInstant(),firsDate.toInstant()));
     }
 

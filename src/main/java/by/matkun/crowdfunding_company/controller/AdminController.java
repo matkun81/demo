@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -19,16 +20,20 @@ import java.util.stream.Collectors;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     @Autowired
-    UserServiceImplement userService;
+    private UserServiceImplement userService;
 
     @GetMapping
-    public String userList(Model model) {
+    public String userList(Principal principal,Model model) {
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        model.addAttribute("currentUser",currentUser);
         model.addAttribute("userList", userService.findAll());
         return "adminPage";
     }
 
     @GetMapping({"/user/{userId}"})
-    public String editUser(@PathVariable(name = "userId") User user, Model model) {
+    public String editUser(Principal principal,@PathVariable(name = "userId") User user, Model model) {
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+        model.addAttribute("currentUser",currentUser);
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         return "editUser";
@@ -37,18 +42,8 @@ public class AdminController {
     @PostMapping("/user/{userId}")
     public String updateUser(@RequestParam Map<String,String> form, User user) {
         User userFromDb = userService.find(user.getId());
-        userFromDb.setName(user.getUsername());
-        Set<String> roles = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
-        userFromDb.getRoles().clear();
-        for (String key: form.keySet()) {
-            if (roles.contains(key)){
-                userFromDb.getRoles().add(Role.valueOf(key));
-            }
-        }
+        userService.setRole(userFromDb,form);
         userService.save(userFromDb);
-
         return "redirect:/admin";
     }
 }

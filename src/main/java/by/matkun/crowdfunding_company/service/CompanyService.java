@@ -20,8 +20,8 @@ public interface CompanyService {
 
     void uploadImage(Company company, MultipartFile file) throws IOException;
 
-    String calculateAvgRate(Company company, User user, float rate);
+    String getAvgRate(Company company, User user, float rate);
 
-    String calculateRestOfDays(String  dateOfFinishing, String dateOfStarting) throws ParseException;
+    String getDurationCompany(Company company) throws ParseException;
 
 }
