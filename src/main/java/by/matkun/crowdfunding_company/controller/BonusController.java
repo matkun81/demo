@@ -29,35 +29,29 @@ public class BonusController {
 
     @GetMapping
     public String getBonuses(Principal principal, Model model, @PathVariable Long companyId, @PathVariable Long userId){
-        List<Bonus> listBonuses = companyService.find(companyId).getListBonus();
-        User currentUser = userService.findAuthorizedUser(principal);
-        model.addAttribute("currentUser",currentUser);
-        model.addAttribute("listBonuses", listBonuses);
+        model.addAttribute("currentUser",userService.findAuthorizedUser(principal));
+        model.addAttribute("listBonuses", bonusService.listBonusesOfCompany(companyId));
         model.addAttribute("companyId",companyId);
         model.addAttribute("userId",userId);
         return "bonusPage";
     }
     @PostMapping
     public String createBonus(@PathVariable (name = "companyId") Company company, Bonus bonus){
-        bonus.setCompany(company);
-        bonusService.save(bonus);
+        bonusService.save(bonus,company);
         return "redirect:/user/{userId}/company/{companyId}/bonus";
     }
     @GetMapping("/editBonus/{bonusId}")
-    public String editNews(Principal principal,@PathVariable Long bonusId,@PathVariable Long userId,@PathVariable Long companyId, Model model){
-        Bonus currentBonus = bonusService.find(bonusId);
-        User currentUser = userService.findAuthorizedUser(principal);
-        model.addAttribute("currentUser",currentUser);
-        model.addAttribute("currentBonus", currentBonus);
+    public String editBonus(Principal principal,@PathVariable Long bonusId,@PathVariable Long userId,@PathVariable Long companyId, Model model){
+        model.addAttribute("currentUser",userService.findAuthorizedUser(principal));
+        model.addAttribute("currentBonus", bonusService.find(bonusId));
         model.addAttribute("userId", userId);
         model.addAttribute("companyId",companyId);
         return "editBonus";
     }
 
     @PostMapping("/editBonus/{bonusId}")
-    public String updateNews(Bonus bonus, @PathVariable Long bonusId){
-        bonus.setId(bonusId);
-        bonusService.save(bonus);
+    public String updateBonus(Bonus bonus, @PathVariable Long bonusId){
+        bonusService.updateBonus(bonusId,bonus);
         return "redirect:/user/{userId}/company/{companyId}/bonus";
     }
     @PostMapping("/deleteBonus")

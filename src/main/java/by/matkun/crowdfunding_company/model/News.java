@@ -29,7 +29,7 @@ public class News {
 
     private GregorianCalendar dateCreating;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -42,9 +42,6 @@ public class News {
     }
     public String getMonthCreating() {
         return String.valueOf(Month.of(dateCreating.getTime().getMonth()+1)).substring(0,3);
-    }
-    public String getDay() {
-        return String.valueOf(DayOfWeek.of(dateCreating.getTime().getDay()+7));
     }
 
 

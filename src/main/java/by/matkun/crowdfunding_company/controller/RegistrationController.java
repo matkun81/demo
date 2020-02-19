@@ -7,14 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
 
 @Controller
-public class Registration {
+public class RegistrationController {
     @Autowired
     private  UserServiceImplement userService;
 
@@ -25,7 +24,7 @@ public class Registration {
 
     @PostMapping("/registration")
     public String addNewUser(User user, Principal principal, Map<String, Object> model) {
-        User userFromDb = userService.findByName(user.getName());
+        User userFromDb = userService.findByName(user.getName());//TODO: shitty code
         if (userFromDb != null) {
             model.put("message", "User exist");
         } else {

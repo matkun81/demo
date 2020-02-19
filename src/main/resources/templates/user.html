@@ -82,17 +82,13 @@
         <div class="form-row">
             <div class="col-md-4 mb-6">
                 <label>Topic</label>
-            <select class="custom-select custom-select-lg mb-3" required name="topic" >
-                <option selected></option>
-                <option value="Electronics">Electronics</option>
-                <option value="Education">Education</option>
-                <option value="Machine">Machine</option>
-                <option value="IT">IT</option>
+            <select class="custom-select custom-select-lg mb-3"  required name="topic" >
+                <option th:each="topic:${topics}" th:value="${topic.name()}" th:text="${topic.name()}"></option>
             </select>
                 </div>
             <div class="col-md-2 mb-3">
                 <label>Finish Sum of money</label>
-        <input type="text" name="finishSum" class="form-control" required placeholder="Input sum of money">
+        <input type="number" name="finishSum" class="form-control" min="0" required placeholder="Input sum of money">
             </div>
             <div class="col-md-3 mb-3">
                 <label>Date of finish company</label>
@@ -108,7 +104,7 @@
         <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label>Image</label>
-                    <input id = "input-b1" name = "file" type = "file" class = "file" data-browse-on-zone-click = "true">
+                    <input id = "input-b1"  name = "file" type = "file" class = "file" data-browse-on-zone-click = "true" required>
                 </div>
         </div>
                 <div class="form-row">
@@ -140,7 +136,7 @@
         </thead>
         <tbody>
         <tr th:each="company : ${listCompany}"
-        th:if="${company.activityTable!=false}">
+        th:if="${company.isActivityTable()!=false}">
             <td th:text="${company.name}"/>
             <td th:text="${company.description}"/>
             <td th:text="${company.topic}"/>

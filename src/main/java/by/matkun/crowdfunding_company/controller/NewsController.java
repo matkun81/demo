@@ -22,9 +22,6 @@ public class NewsController {
     private NewsServiceImplement newsService;
 
     @Autowired
-    private CompanyServiceImplement companyService;
-
-    @Autowired
     private UserServiceImplement userService;
     @GetMapping
     public String getNews(Principal principal,@PathVariable (name = "companyId") Company company, @PathVariable Long userId, Model model){
@@ -38,7 +35,7 @@ public class NewsController {
     }
     @PostMapping
     public String createNews(@PathVariable (name = "companyId") Company company, News news){
-        news.setCompany(company);
+        news.setCompany(company); //TODO: holy crap
         newsService.save(news);
         return "redirect:/user/{userId}/company/{companyId}/news";
     }

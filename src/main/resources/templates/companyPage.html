@@ -23,85 +23,116 @@
 <div class="container">
     <div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
 
-<div class="form-row">
-    <div class="col">
-    <img th:src="@{${currentCompany.fileName}}" width="500" height="500"/>
-    <h3 th:text ="${currentCompany.name}"/>
-    <h7 th:text ="${currentCompany.description}"/>
-    <form th:action="@{/company/{companyId}(companyId = ${currentCompany.id})}" class="form-horizontal" method="post">
-        <input type="text" id="input-3" name="avgRate" required class="rating rating-loading" th:value="${currentCompany.avgRate}" data-size="sm" data-show-caption = "true" data-step="0.1"  >
-        <div th:if="${currentUser} ==null" class="alert alert-primary" role="alert">
-            If you want to set rating, please authorize: <a href="/login" class="alert-link">Click here!</a>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-    <div class="col-lg-6">
-        <div>
-            <h1 th:text="'Current sum:' + ${currentCompany.currentSum} + '$'"></h1>
-            <h1 th:text="'Nessary:' + ${currentCompany.finishSum} + '$'"></h1>
-            <h3 th:text="'Complete:' + ${(currentCompany.currentSum/currentCompany.finishSum)*100}"></h3>
-            <h1 th:text="'Rest Day:' + ${countDays}"></h1>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Support company
-            </button>
-            <div class="collapse" id="collapseExample">
-                <table id="companies" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Name</th >
-                        <th>Description</th>
-                        <th>Sum of money</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="bonus : ${currentCompany.listBonus}">
-                        <td th:text="${bonus.name}"/>
-                        <td th:text="${bonus.description}"/>
-                        <td th:text="${bonus.sumOfMoney}"/>
-                        <td><form th:action="@{/company/{companyId}/donate(companyId = ${currentCompany.id})}" class="form-horizontal" method="post">
-                            <input type="hidden" th:value="${bonus.id}" name="id"/>
-                            <div th:if="${currentUser} !=null">
-                            <button class="btn btn-primary" type="submit">Support</button>
-                            </div>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <h1 class="my-4" th:text ="${currentCompany.name}">
+        </h1>
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-fluid" th:src="@{${currentCompany.fileName}}">
+                <form th:action="@{/company/{companyId}(companyId = ${currentCompany.id})}" class="form-horizontal" method="post">
+                    <input type="text" id="input-3" name="avgRate" required class="rating rating-loading" th:value="${avgRate}" data-size="sm" data-show-caption = "true" data-step="0.1"  >
+                    <div th:if="${currentUser} ==null" class="alert alert-primary" role="alert">
+                        If you want to set rating, please authorize: <a href="/login" class="alert-link">Click here!</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div class="row justify-content-md-center">
+                    <div th:if="${currentUser} ==null" class="alert alert-primary" role="alert">
+                        If you want to add comment, please authorize: <a href="/login" class="alert-link">Click here!</a>
+                    </div>
+                    <div class="form-row" th:if="${currentUser!=null}">
+                        <form th:action="@{/company/{companyId}/comments (companyId = ${currentCompany.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
+                            <input type="text" id="addComment" name="text"/>
+                            <input type="hidden" id="companyId" th:value="${currentCompany.id}">
+                            <button id="addButton" name="addButton"  type="submit" >add comment</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h3 class="my-3">Project Description</h3>
+                <p th:text ="${currentCompany.description}"></p>
+                <h3 class="my-3">Project Details</h3>
+                <ul>
+                    <li th:text="'Current sum:' + ${currentSumOfDonates} + '$'"></li>
+                    <li th:text="'Nessary:' + ${currentCompany.finishSum} + '$'"></li>
+                    <li th:text="'Complete:' + ${(currentSumOfDonates/currentCompany.finishSum)*100} + '%'"></li>
+                    <li th:text="'Days left:' + ${countDays}"></li>
+                </ul>
+                <h3 class="my-3">Bonuses</h3>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Support company
+                </button>
+                <div class="collapse" id="collapseExample">
+                    <table id="companies" class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th >
+                            <th>Description</th>
+                            <th>Sum of money</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="bonus : ${currentCompany.listBonus}">
+                            <td th:text="${bonus.name}"/>
+                            <td th:text="${bonus.description}"/>
+                            <td th:text="${bonus.sumOfMoney}"/>
+                            <td><form th:action="@{/company/{companyId}/donate(companyId = ${currentCompany.id})}" class="form-horizontal" method="post">
+                                <input type="hidden" th:value="${bonus.id}" name="id"/>
+                                <div th:if="${currentUser} !=null">
+                                    <button class="btn btn-primary" type="submit">Support</button>
+                                </div>
                                 <div th:if="${currentUser} ==null" class="alert alert-primary" role="alert">
                                     If you want to help, please authorize: <a href="/login" class="alert-link">Click here!</a>
                                 </div>
-                        </form> </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div th:each="news:${currentNews}">
-            <div class="row justify-content-md-center">
-                <div class="col-2 text-right">
-                    <h3 class="display-4"><a th:href="@{/company/news/{newsId}(newsId = ${news.id})}"><span  th:text="${news.dateCreating.time.date}"></span></a></h3>
-                    <h3 th:text="${news.getMonthCreating()}"></h3>
+                            </form> </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col-10">
-                    <h3 class="text-uppercase"><a th:href="@{/company/{companyId}/news/{newsId}(companyId = ${currentCompany.id},newsId = ${news.id})}"><strong th:text="${news.title}"></strong></a> </h3>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> <strong th:text="${news.getDay()}"></strong></li>
-                        <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> <strong th:text="${news.dateCreating.time.hours}+':'+${news.dateCreating.time.minutes}+':'+ ${news.dateCreating.time.seconds}"/></li>
-                    </ul>
-                    <p th:text="${news.text}"></p>
-                </div>
+
+                <h3 class="my-3">News</h3>
+                <div th:each="news:${currentNews}">
+                    <div class="row justify-content-md-center">
+                        <div class="col-2 text-right">
+                            <h5 class="display-4"><a th:href="@{/company/news/{newsId}(newsId = ${news.id})}"><span  th:text="${news.dateCreating.time.date}"></span></a></h5>
+                            <h5 th:text="${news.getMonthCreating()}"></h5>
+                        </div>
+                        <div class="col-10">
+                            <h5 class="text-uppercase"><a th:href="@{/company/{companyId}/news/{newsId}(companyId = ${currentCompany.id},newsId = ${news.id})}"><strong th:text="${news.title}"></strong></a> </h5>
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> <strong th:text="${news.dateCreating.time.hours}+':'+${news.dateCreating.time.minutes}+':'+ ${news.dateCreating.time.seconds}"/></li>
+                            </ul>
+                        </div>
+                    </div>
             </div>
+
         </div>
+        <!-- /.row -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+    <div id="replace_div"
+         th:if="${currentUser!=null}">
     </div>
 </div>
-    <div class="form-row">
-    <form th:action="@{/company/{companyId}/comments (companyId = ${currentCompany.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
-                <input type="text" id="addComment" name="text"/>
-        <input type="hidden" id="companyId" th:value="${currentCompany.id}">
-                <button id="addButton" name="addButton"  type="submit" >add comment</button>
-    </form>
-    </div>
-    <div id="replace_div"
-    th:if="${currentUser!=null}">
-        Content goes here
-    </div>
+
+<script>
+$('#myModal').on('shown.bs.modal', function () {
+$('#myInput').trigger('focus')
+})
+</script>
 <script>
     setInterval(function () {
         getContent();
@@ -112,6 +143,9 @@
         }
     },1000)
 </script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </body>
 </html>

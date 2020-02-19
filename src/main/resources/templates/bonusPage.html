@@ -16,9 +16,9 @@
     <div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
 
 <form th:action="@{/user/{userId}/company/{companyId}/bonus(companyId =${companyId},userId =${userId})}" enctype="multipart/form-data" class="form-horizontal" method="post">
-    <input type="text" name="name" placeholder="Input name">
-    <input type="text" name="description" placeholder="Input description">
-    <input type="number" name="sumOfMoney" placeholder="Sum of money">
+    <input type="text" name="name" required placeholder="Input name">
+    <input type="text" name="description" required placeholder="Input description">
+    <input type="number" min="0" name="sumOfMoney" required placeholder="Sum of money">
     <button type="submit">add</button>
 </form>
 <h2>Bonuses</h2>

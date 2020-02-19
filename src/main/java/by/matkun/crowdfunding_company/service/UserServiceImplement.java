@@ -50,7 +50,7 @@ public class UserServiceImplement implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        if (userRepository.findByName(name) != null) {
+        if (userRepository.existsByName(name)) {
             return userRepository.findByName(name);
         }
         if (userRepository.findByFacebookUserName(name) != null) {

@@ -1,13 +1,18 @@
 package by.matkun.crowdfunding_company.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode(of = "text")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +20,8 @@ public class Tag {
 
     private String text;
 
+    @ManyToMany
+    Set<Company> companies = new HashSet<>();
     public Tag() {
     }
 

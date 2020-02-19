@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     private String gitHubUserName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Bonus> bonusList;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
