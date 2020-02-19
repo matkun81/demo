@@ -5,19 +5,30 @@
 </head>
 
 <body>
-<div class="table-responsive" th:fragment="listComment" id="resultsBlock">
-    <table id="comments" class="table table-hover">
-        <thead>
-        <tr>
-            <th>Comments</th >
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="comment : ${comments}">
-            <td th:text="${comment.text}"/>
-        </tr>
-        </tbody>
-    </table>
+<div th:fragment="listComment" id="resultsBlock">
+    <div class="card-footer container" >
+        <div class="row" id="comments" th:each="comment : ${comments}">
+            <a class="col-align-self-centr" th:text="${comment.text}"></a>
+
+            <form th:action="@{/company/{companyId}/comments/{commentId}(companyId = ${currentCompany.id}, commentId = ${comment.id})}" class="form-horizontal" method="post">
+                <input type="hidden" name = "like" th:value="true">
+                <button class="col-align-self-centr" type="submit" th:if="${!comment.checkLike(currentUser)}">
+                    <i class="far fa-thumbs-up"></i></button>
+                <button class="col-align-self-centr" th:if="${comment.checkLike(currentUser)}">
+                    <i class="fas fa-thumbs-up"></i></button>
+            </form>
+             <strong th:text="${comment.countLike()}"></strong>
+
+            <form th:action="@{/company/{companyId}/comments/{commentId}(companyId = ${currentCompany.id}, commentId = ${comment.id})}" class="form-horizontal" method="post">
+                <input type="hidden" name = "like" th:value="false">
+                <button class="col-align-self-centr" type="submit" th:if="${comment.checkDisLike(currentUser)}">
+                    <i class="fas fa-thumbs-down"></i></button>
+                <button class="col-align-self-centr" th:if="${!comment.checkDisLike(currentUser)}">
+                    <i class="far fa-thumbs-down"></i></button>
+            </form>
+            <strong th:text="${comment.countDisLike()}"></strong>
+        </div>
+    </div>
 </div>
 
 <div th:fragment="content2">
