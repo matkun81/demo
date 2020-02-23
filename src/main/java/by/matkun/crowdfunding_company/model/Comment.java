@@ -2,6 +2,8 @@ package by.matkun.crowdfunding_company.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,7 +28,7 @@ public class Comment {
     @Column(name = "likes")
     private Map<User,Boolean> usersLikes = new HashMap<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id")
     private Company company;
 

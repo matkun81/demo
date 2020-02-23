@@ -1,58 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script>
-    <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css" />
-
-    <script src="/static/js/moment-with-locales.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/bootstrap-datetimepicker.min.js"></script>
-    <!--Tags-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-    <link href="/static/css/markdown-editor.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="/static/plugins/highlight/highlight.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="http://twemoji.maxcdn.com/2/twemoji.min.js?11.0"></script>
-    <script src="/static/plugins/purify/purify.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-deflist.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-footnote.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-abbr.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-sub.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-sup.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-ins.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-mark.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-smartarrows.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-checkbox.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-cjk-breaks.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/markdown-it/markdown-it-emoji.min.js" type="text/javascript"></script>
-    <script src="/static/plugins/highlight/highlight.min.js" type="text/javascript"></script>
-    <script src="/static/js/markdown-editor.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Optionally include theme.js script or theme.css for a different theme if needed -->
-    <!-- script src="/path/to/themes/fa5/theme.js" type="text/javascript"></script -->
-    <!-- Optionally include localization script for your language if needed -->
-    <!-- script src="/path/to/js/locales/en.js" type="text/javascript"></script>-->
-    <!--Table-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
 </head>
 <body>
+<header th:replace="fragments/header :: header"> </header>
 <div class="container">
     <div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
 <h2>Company Information</h2>
@@ -103,7 +54,7 @@
         <input type="hidden" name="owner" th:value="${company.owner.id}"placeholder="owner">
         <div class="form-row">
             <div class="col-md-6 mb-3">
-                <button type="submit" class="btn btn-primary">Create Company</button>
+                <button type="submit" class="btn btn-primary">Update company</button>
             </div>
         </div>
     </form>

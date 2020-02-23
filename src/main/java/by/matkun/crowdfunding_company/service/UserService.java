@@ -24,5 +24,7 @@ public interface UserService {
 
     User addBonusToUser(User user, Bonus bonus);
 
+    User addNewUser(User user, Map<String, Object> model);
+
 
 }

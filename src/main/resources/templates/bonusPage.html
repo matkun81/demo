@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
     <title>Title</title>
 </head>
 <body>
+<header th:replace="fragments/header :: header"> </header>
 <div class="container">
     <div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
 
 <form th:action="@{/user/{userId}/company/{companyId}/bonus(companyId =${companyId},userId =${userId})}" enctype="multipart/form-data" class="form-horizontal" method="post">
-    <input type="text" name="name" required placeholder="Input name">
-    <input type="text" name="description" required placeholder="Input description">
-    <input type="number" min="0" name="sumOfMoney" required placeholder="Sum of money">
-    <button type="submit">add</button>
+    <div class="form-row">
+<div class="col-md-4 mb-3">
+    <input type="text" name="name" class="form-control" required placeholder="Input name">
+    </div>
+    </div>
+    <textarea id='editor-ru' type="text" name="description" class="form-control" th:rows="15" required placeholder="Input description"></textarea>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+    <input type="number" min="0" name="sumOfMoney" class="form-control" required placeholder="Sum of money">
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">add</button>
 </form>
 <h2>Bonuses</h2>
 
@@ -40,7 +41,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="bonus : ${listBonuses}">
+    <tr th:each="bonus : ${listBonuses}"
+        th:if="${bonus.isActivity()!=false}">
         <td th:text="${bonus.name}"/>
         <td th:text="${bonus.description}"/>
         <td th:text="${bonus.sumOfMoney}"/>
@@ -48,14 +50,18 @@
             <input type="hidden" th:value="${bonus.id}" name="bonusId">
             <button type="submit">delete</button>
         </form>
-        </td>
-        <td><a th:href="@{/user/{userId}/company/{companyId}/bonus/editBonus/{bonusId}(companyId =${companyId},userId =${userId}, bonusId = ${bonus.id})}"> edit
-        </a>
+            <a th:href="@{/user/{userId}/company/{companyId}/bonus/editBonus/{bonusId}(companyId =${companyId},userId =${userId}, bonusId = ${bonus.id})}"> edit
+            </a>
         </td>
     </tr>
     </tbody>
 </table>
 </div>
+<script type="text/javascript">
+    $('#editor-ru').markdownEditor({
+        language: 'ru'
+    });
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>

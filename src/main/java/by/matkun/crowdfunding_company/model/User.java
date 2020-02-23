@@ -35,7 +35,7 @@ public class User implements UserDetails {
 
     private String gitHubUserName;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Bonus> bonusList;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -44,6 +44,7 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Company> companies;
 
     @Override

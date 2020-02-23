@@ -8,11 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
@@ -29,18 +29,22 @@ import java.util.List;
 @EnableOAuth2Client
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserServiceImplement userService;
-
     @Autowired
     private OAuth2ClientContext oauth2ClientContext;
-
     @Autowired
-    private UserRepository userRepo;
+    private  UserRepository userRepo;
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
 
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder(8);
+    }
 
 
     private Filter ssoFilter() {
@@ -56,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         facebookFilter.setTokenServices(tokenServices);
         filters.add(facebookFilter);
         tokenServices.setUserRepo(userRepo);
+        tokenServices.setPasswordEncoder(passwordEncoder);
 
 
         OAuth2ClientAuthenticationProcessingFilter githubFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/github");
@@ -66,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         githubFilter.setTokenServices(tokenServices);
         filters.add(githubFilter);
         tokenServices.setUserRepo(userRepo);
-
+        tokenServices.setPasswordEncoder(passwordEncoder);
         filter.setFilters(filters);
         return filter;
 
@@ -94,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+                .passwordEncoder(passwordEncoder);
     }
 
     @Bean

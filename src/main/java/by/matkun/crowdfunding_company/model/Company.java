@@ -3,6 +3,11 @@ package by.matkun.crowdfunding_company.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -12,6 +17,7 @@ import java.util.*;
 
 
 @Entity
+@Indexed
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -21,10 +27,13 @@ public class Company {
     private Long id;
 
     @NotBlank
+    @Field
     private String name;
 
+    @Field
     private String topic;
     @NotBlank
+    @Field
     @Length(max = 6000,message = "Description is too long")
     private String description;
 
@@ -46,14 +55,16 @@ public class Company {
     @Column(name = "donate")
     private Map<User,Float> usersDonates;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Topic.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "company_topic", joinColumns = @JoinColumn(name = "company_id"))
     @Enumerated(EnumType.STRING)
     private Set<Topic> topics;
 
+    @IndexedEmbedded
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Bonus> listBonus;
 
+    @IndexedEmbedded
     @OneToMany (mappedBy = "company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<News> listNews;
 
@@ -71,7 +82,7 @@ public class Company {
     @OneToMany (mappedBy = "company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> listComment;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Tag> tags;
 
     public Company() {

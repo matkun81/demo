@@ -1,6 +1,7 @@
 package by.matkun.crowdfunding_company.service;
 
 import by.matkun.crowdfunding_company.model.Comment;
+import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.User;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface CommentService {
 
     List<Comment> findAll();
 
-    Comment save(Comment comment);
+    Comment save(Comment comment, Company company);
 
     void delete (Long id);
 

@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +21,9 @@ public class UserServiceImplement implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User find(Long id) {
@@ -72,7 +74,7 @@ public class UserServiceImplement implements UserService, UserDetailsService {
 
     @Override
     public User setRole(User user, Map<String, String> formFromFront) {
-        user.setName(user.getUsername());
+        user.setName(formFromFront.get("name"));
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
@@ -94,5 +96,18 @@ public class UserServiceImplement implements UserService, UserDetailsService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public User addNewUser(User user, Map<String, Object> model) {
+        User userFromDb = userRepository.findByName(user.getName());
+        if (userFromDb != null) {
+            model.put("message", "User exist");
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Collections.singleton(Role.USER));
+            userRepository.save(user);
+        }
+        return user;
     }
 }

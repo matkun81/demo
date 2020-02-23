@@ -5,6 +5,7 @@ import by.matkun.crowdfunding_company.model.Role;
 import by.matkun.crowdfunding_company.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedAuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.FixedPrincipalExtractor;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.Principal
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.BaseOAuth2ProtectedResourceDetails;
@@ -26,6 +28,7 @@ import org.springframework.util.Assert;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class CustomUserInfoTokenServices implements ResourceServerTokenServices
 {
@@ -38,6 +41,7 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices
 	private PrincipalExtractor principalExtractor = new FixedPrincipalExtractor();
 
 	private UserRepository userRepo;
+	private PasswordEncoder passwordEncoder;
 
 
 	public CustomUserInfoTokenServices(){}
@@ -53,6 +57,9 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices
 		this.userRepo = userRepo;
 	}
 
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder){
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	public String getUserInfoEndpointUrl()
 	{
@@ -101,11 +108,11 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices
 				user = new User();
 				user.setName(name);
 				user.setFacebookUserName(id);
-				user.setPassword("password");
+				user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
 				user.setRoles(Collections.singleton(Role.USER));
 			}
 			user.setName(name);
-			user.setPassword("passwordFromFacebook");
+			user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
 			userRepo.save(user);
 		}
 		if (map.size()==31){
@@ -117,11 +124,11 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices
 				user = new User();
 				user.setName(name);
 				user.setGitHubUserName(Integer.toString(id));
-				user.setPassword("passwordFromGitHub");
+				user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
 				user.setRoles(Collections.singleton(Role.USER));
 			}
 			user.setName(name);
-			user.setPassword("passwordFromGitHub");
+			user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
 			userRepo.save(user);
 		}
 

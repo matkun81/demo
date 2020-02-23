@@ -46,4 +46,9 @@ public class UserController {
         userService.save(userFromDb);
         return "redirect:/admin";
     }
+    @PostMapping("/deleteUser")
+      public String deleteUser(@RequestParam Long userId){
+        userService.delete(userId);
+        return "redirect:/admin";
+    }
 }

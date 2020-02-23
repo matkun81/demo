@@ -43,4 +43,6 @@ public interface CompanyService {
 
     String getDurationCompany(Company company) throws ParseException;
 
+    boolean checkUserRights(User currentUser,User ownerCompany);
+
 }

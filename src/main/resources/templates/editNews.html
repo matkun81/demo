@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Title</title>
 </head>
 <body>
+<header th:replace="fragments/header :: header"> </header>
 <div class="container">
     <div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
 <h2>News Information</h2>
 
 <form th:action="@{/user/{userId}/company/{companyId}/news/editNews/{newsId}(companyId =${companyId},userId =${userId}, newsId = ${currentNews.id})}" enctype="multipart/form-data" class="form-horizontal" method="post">
-    <input type="text" name="title" th:value="${currentNews.title}" placeholder="Name of products">
-    <input type="text" name="text" th:value="${currentNews.text}"placeholder="Description">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+    <input type="text" name="title" th:value="${currentNews.title}" class="form-control" placeholder="Title">
+        </div>
+    </div>
+    <textarea id='editor-ru' type="text" name="text" th:value="${currentNews.text}" th:rows="15" placeholder="Text of news"></textarea>
     <input type="hidden" name="company" th:value="${currentNews.getCompany().id}"placeholder="owner">
-    <button type="submit">add</button>
+    <button class="btn btn-primary" type="submit">Update</button>
 </form>
 </div>
+<script type="text/javascript">
+    $('#editor-ru').markdownEditor({
+        language: 'ru'
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

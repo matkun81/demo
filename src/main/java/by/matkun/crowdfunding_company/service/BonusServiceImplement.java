@@ -47,6 +47,12 @@ public class BonusServiceImplement implements BonusService {
     @Override
     public void delete(Long id) {
         bonusRepository.deleteById(id);
+    }
 
+    @Override
+    public Bonus deleteEasily(Long bonusId) {
+        Bonus bonus = bonusRepository.getOne(bonusId);
+        bonus.setActivity(false);
+        return bonusRepository.save(bonus);
     }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search result:</title>
+</head>
+<body>
+<header th:replace="fragments/header :: header"> </header>
+<div class="container">
+<div th:replace="~{fragments/navBarTemplate :: navBar}"></div>
+    <div class="row row-cols-4 row-cols-md-3">
+        <div th:each="company : ${companies}"
+             th:if="${company.activityTable!=false}">
+            <div class="col mb-4">
+                <div class="card">
+                    <img class="card-img-top" th:src="@{${company.fileName}}">
+                    <div class="card-body">
+                        <h3 class="card-title border-bottom pb-3" ><strong th:text="${company.name}"></strong> <a th:href="@{/company/{companyId}(companyId = ${company.id})}" class="float-right btn btn-sm btn-info d-inline-flex share"><i class="fas fa-share-alt"></i></a></h3>
+                        <p class="card-text">
+                            <input type="text" id="input-3" name="avgRate" required class="rating rating-loading" th:value="${company.getAvgRate()}" data-size="sm" data-show-caption = "true" data-step="0.1"  >
+                            <strong th:text="'Current Sum:' + ${company.getCurrentSum() + '$'}">The Aim</strong>
+                        <div th:with="result=${(company.getCurrentSum() /company.finishSum)*100}">
+                            <strong th:text="${'Percent completion:' + result + '%'}"></strong>
+                        </div>
+                        </p>
+                        <a th:href="@{/company/{companyId}(companyId = ${company.id})}" class="btn btn-sm btn-info float-right">Read more <i class="fas fa-angle-double-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -17,4 +17,6 @@ public interface BonusService {
     Bonus updateBonus(Long id, Bonus bonus);
 
     void delete (Long id);
+
+    Bonus deleteEasily(Long bonusId);
 }

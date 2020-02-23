@@ -1,9 +1,7 @@
 package by.matkun.crowdfunding_company.service;
 
-import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.News;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public interface NewsService {

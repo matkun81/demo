@@ -2,10 +2,7 @@ package by.matkun.crowdfunding_company.service;
 
 import by.matkun.crowdfunding_company.dao.BonusRepository;
 import by.matkun.crowdfunding_company.dao.CompanyRepository;
-import by.matkun.crowdfunding_company.model.Bonus;
-import by.matkun.crowdfunding_company.model.Company;
-import by.matkun.crowdfunding_company.model.Tag;
-import by.matkun.crowdfunding_company.model.User;
+import by.matkun.crowdfunding_company.model.*;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
@@ -194,5 +191,13 @@ public class CompanyServiceImplement implements CompanyService {
         return String.valueOf(ChronoUnit.DAYS.between(secondDate.toInstant(), firsDate.toInstant()));
     }
 
-
+    @Override
+    public boolean checkUserRights(User currentUser, User ownerCompany) {
+        for (Role role: currentUser.getRoles()) {
+            if (role.name().equals("ADMIN")){
+                return true;
+            }
+        }
+        return currentUser.equals(ownerCompany);
+    }
 }

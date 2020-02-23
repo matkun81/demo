@@ -24,20 +24,22 @@ import java.util.Set;
 @RequestMapping("user/{userId}")
 public class CompanyController {
 
-    @Autowired
-    private CompanyServiceImplement companyService;
+    private final CompanyServiceImplement companyService;
+    private final UserServiceImplement userService;
+    private final TagServiceImplement tagService;
 
     @Autowired
-    private UserServiceImplement userService;
-
-    @Autowired
-    private TagServiceImplement tagService;
+    public CompanyController(CompanyServiceImplement companyService, UserServiceImplement userService, TagServiceImplement tagService) {
+        this.companyService = companyService;
+        this.userService = userService;
+        this.tagService = tagService;
+    }
 
     @GetMapping
     public String getListCompany(Principal principal, @PathVariable(name = "userId") User user, Model model) {
         User currentUser = userService.findAuthorizedUser(principal);
         model.addAttribute("listCompany", user.getCompanies());
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("isCurrentUser", companyService.checkUserRights(currentUser,user));
         model.addAttribute("currentUser", user);
         model.addAttribute("topics", Topic.values());
         return "user";

@@ -2,6 +2,7 @@ package by.matkun.crowdfunding_company.service;
 
 import by.matkun.crowdfunding_company.dao.CommentRepository;
 import by.matkun.crowdfunding_company.model.Comment;
+import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class CommentServiceImplement implements CommentService {
     }
 
     @Override
-    public Comment save(Comment comment) {
+    public Comment save(Comment comment, Company company) {
+        comment.setCompany(company);
         return commentRepository.save(comment);
     }
 
