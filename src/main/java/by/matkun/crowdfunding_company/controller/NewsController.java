@@ -3,62 +3,60 @@ package by.matkun.crowdfunding_company.controller;
 import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.News;
 import by.matkun.crowdfunding_company.model.User;
-import by.matkun.crowdfunding_company.service.CompanyServiceImplement;
 import by.matkun.crowdfunding_company.service.NewsServiceImplement;
 import by.matkun.crowdfunding_company.service.UserServiceImplement;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/user/{userId}/company/{companyId}/news")
+@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 public class NewsController {
 
-    @Autowired
-    private NewsServiceImplement newsService;
+    private final NewsServiceImplement newsService;
+    private final UserServiceImplement userService;
 
-    @Autowired
-    private UserServiceImplement userService;
     @GetMapping
-    public String getNews(Principal principal,@PathVariable (name = "companyId") Company company, @PathVariable Long userId, Model model){
-        List<News> newsList = company.getListNews();
+    public String getNews(Principal principal, @PathVariable(name = "companyId") Company company, @PathVariable Long userId, Model model) {
         User currentUser = userService.findAuthorizedUser(principal);
-        model.addAttribute("currentUser",currentUser);
-        model.addAttribute("listNews", newsList);
-        model.addAttribute("companyId",company.getId());
-        model.addAttribute("userId",userId);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("listNews", company.getListNews());
+        model.addAttribute("companyId", company.getId());
+        model.addAttribute("userId", userId);
         return "newsPage";
     }
+
     @PostMapping
-    public String createNews(@PathVariable (name = "companyId") Company company, News news){
-        news.setCompany(company); //TODO: holy crap
-        newsService.save(news);
+    public String createNews(@PathVariable(name = "companyId") Company company, News news) {
+        newsService.create(news, company);
         return "redirect:/user/{userId}/company/{companyId}/news";
     }
 
     @GetMapping("/editNews/{newsId}")
-    public String editNews(Principal principal,@PathVariable Long newsId,@PathVariable Long userId,@PathVariable Long companyId, Model model){
+    public String editNews(Principal principal, @PathVariable Long newsId, @PathVariable Long userId, @PathVariable Long companyId, Model model) {
         News currentNews = newsService.find(newsId);
         User currentUser = userService.findAuthorizedUser(principal);
-        model.addAttribute("currentUser",currentUser);
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("currentNews", currentNews);
         model.addAttribute("userId", userId);
-        model.addAttribute("companyId",companyId);
+        model.addAttribute("companyId", companyId);
         return "editNews";
     }
 
     @PostMapping("/editNews/{newsId}")
-    public String updateNews(News news, @PathVariable Long newsId){
-        news.setId(newsId);
-        newsService.save(news);
+    public String updateNews(News news, @PathVariable Long newsId) {
+        newsService.update(news, newsId);
         return "redirect:/user/{userId}/company/{companyId}/news";
     }
+
     @PostMapping("/deleteNews")
-    public String deleteNews(@RequestParam Long newsId){
+    public String deleteNews(@RequestParam Long newsId) {
         newsService.delete(newsId);
         return "redirect:/user/{userId}/company/{companyId}/news";
     }

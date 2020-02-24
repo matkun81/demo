@@ -2,7 +2,8 @@ package by.matkun.crowdfunding_company.controller;
 
 import by.matkun.crowdfunding_company.model.*;
 import by.matkun.crowdfunding_company.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,29 +12,15 @@ import java.security.Principal;
 import java.text.ParseException;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class MainController {
 
-    @Autowired
-    private UserServiceImplement userService;
-
-    @Autowired
-    private CompanyServiceImplement companyService;
-
-    @Autowired
-    private BonusServiceImplement bonusService;
-
-    @Autowired
-    private NewsServiceImplement newsService;
-
-    @Autowired
-    private TagServiceImplement tagService;
-
-    @GetMapping("/test")
-    public String any() {
-
-        return "test";
-    }
+    private final UserServiceImplement userService;
+    private final CompanyServiceImplement companyService;
+    private final BonusServiceImplement bonusService;
+    private final NewsServiceImplement newsService;
+    private final TagServiceImplement tagService;
 
     @GetMapping
     public String getListCompany(Principal principal, @RequestParam(required = false) String topic,
@@ -84,6 +71,7 @@ public class MainController {
         return "redirect:/company/{companyId}";
     }
 
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @PostMapping("company/{companyId}/donate")
     public String donate(Principal principal, Bonus bonus, @PathVariable(name = "companyId") Company company) {
         User user = userService.findAuthorizedUser(principal);

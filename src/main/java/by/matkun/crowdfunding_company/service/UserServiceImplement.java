@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class UserServiceImplement implements UserService, UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private  UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

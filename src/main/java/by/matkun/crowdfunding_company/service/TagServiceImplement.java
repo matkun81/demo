@@ -3,16 +3,17 @@ package by.matkun.crowdfunding_company.service;
 import by.matkun.crowdfunding_company.dao.TagRepository;
 import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class TagServiceImplement implements TagService {
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
     @Override
     public Tag find(Long id) {
@@ -23,6 +24,7 @@ public class TagServiceImplement implements TagService {
     public Set<Tag> findAll() {
         return new HashSet<>(tagRepository.findAll());
     }
+
     @Override
     public Tag save(Tag tag) {
         return tagRepository.save(tag);

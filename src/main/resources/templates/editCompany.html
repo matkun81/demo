@@ -58,15 +58,7 @@
             </div>
         </div>
     </form>
-<!--<form th:action="@{/user/{userId}/editCompany/{companyId}(companyId =${company.id},userId =${currentUser})}" enctype="multipart/form-data" class="form-horizontal" method="post">-->
-    <!--<input type="text" name="name" th:value="${company.name}" placeholder="Name of products">-->
-    <!--<input type="text" name="description" th:value="${company.description}"placeholder="Description">-->
-    <!--<input type="text" name="topic" th:value="${company.topic}"placeholder="Topic">-->
-    <!--<input type="number" name="finishSum" th:value="${company.finishSum}"placeholder="Topic">-->
-    <!--<input type="file" name="file" placeholder="Выберите изображение">-->
-    <!--<input type="hidden" name="owner" th:value="${company.owner.id}"placeholder="owner">-->
-    <!--<button type="submit">add</button>-->
-<!--</form>-->
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 <script type="text/javascript">
     $(function () {

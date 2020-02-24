@@ -24,10 +24,10 @@ User list
         <td><a th:href="@{/user/{userId}(userId = ${user.id})}"><span th:text="${user.name}"/> </a></td>
         <td th:text="${user.roles}"/>
         <td><a th:href="@{/admin/user/{userId}(userId = ${user.id})}">editUser</a>
-            <form th:action="@{/admin/deleteUser}" class="form-horizontal" method="post">
-                <input type="hidden" th:value="${user.id}" name="userId">
-                <button class="btn btn-primary" type="submit">delete</button>
-            </form></td>
+            <!--<form th:action="@{/admin/deleteUser}" class="form-horizontal" method="post">-->
+                <!--<input type="hidden" th:value="${user.id}" name="userId">-->
+                <!--<button class="btn btn-primary" type="submit">delete</button>-->
+            <!--</form></td>-->
     </tr>
     </tbody>
 </table>

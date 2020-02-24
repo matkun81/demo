@@ -18,7 +18,7 @@
         <h1 class="display-4">Hi people!</h1>
         <p class="lead">This is a simple example of crowdfunding company</p>
         <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <a class="btn btn-primary btn-lg" href="https://ru.wikipedia.org/wiki/%D0%9A%D1%80%D0%B0%D1%83%D0%B4%D1%84%D0%B0%D0%BD%D0%B4%D0%B8%D0%BD%D0%B3" role="button">Learn more</a>
     </div>
 
     <div class="btn-group dropup">
@@ -46,7 +46,7 @@
                 <div class="card-body">
                     <h3 class="card-title border-bottom pb-3" ><strong th:text="${company.name}"></strong> <a th:href="@{/company/{companyId}(companyId = ${company.id})}" class="float-right btn btn-sm btn-info d-inline-flex share"><i class="fas fa-share-alt"></i></a></h3>
                     <p class="card-text">
-                        <input type="text" id="input-3" name="avgRate" required class="rating rating-loading" th:value="${company.getAvgRate()}" data-size="sm" data-show-caption = "true" data-step="0.1"  >
+                        <input type="text" id="input-3" name="avgRate" required class="rating rating-loading" th:value="${company.getAvgRate()}" data-size="sm" data-show-caption = "true" data-step="0.1" data-readonly="true" >
                         <strong th:text="'Current Sum:' + ${company.getCurrentSum() + '$'}">The Aim</strong>
                     <div th:with="result=${(company.getCurrentSum() /company.finishSum)*100}">
                     <strong th:text="${'Percent completion:' + result + '%'}"></strong>
@@ -68,5 +68,6 @@
         </div>
     </div>
 </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

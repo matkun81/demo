@@ -3,6 +3,7 @@ package by.matkun.crowdfunding_company.service;
 import by.matkun.crowdfunding_company.dao.NewsRepository;
 import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.News;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class NewsServiceImplement implements NewsService {
-    @Autowired
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
 
     @Override
     public News find(Long id) {
@@ -47,5 +48,17 @@ public class NewsServiceImplement implements NewsService {
             }
         }
         return listNewsByDate;
+    }
+
+    @Override
+    public News create(News news, Company company) {
+        news.setCompany(company);
+        return newsRepository.save(news);
+    }
+
+    @Override
+    public News update(News news, Long id) {
+        news.setId(id);
+        return newsRepository.save(news);
     }
 }

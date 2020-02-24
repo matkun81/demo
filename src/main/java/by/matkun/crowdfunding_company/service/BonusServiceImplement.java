@@ -3,18 +3,18 @@ package by.matkun.crowdfunding_company.service;
 import by.matkun.crowdfunding_company.dao.BonusRepository;
 import by.matkun.crowdfunding_company.model.Bonus;
 import by.matkun.crowdfunding_company.model.Company;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class BonusServiceImplement implements BonusService {
-    @Autowired
-    private CompanyServiceImplement companyService;
 
-    @Autowired
-    private BonusRepository bonusRepository;
+    private final CompanyServiceImplement companyService;
+    private final BonusRepository bonusRepository;
 
     @Override
     public Bonus find(Long id) {
@@ -31,7 +31,6 @@ public class BonusServiceImplement implements BonusService {
         bonus.setCompany(company);
         return bonusRepository.save(bonus);
     }
-
 
     @Override
     public List<Bonus> listBonusesOfCompany(Long companyId) {

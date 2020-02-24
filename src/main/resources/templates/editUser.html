@@ -11,9 +11,8 @@
     <h2>Edit user</h2>
 <form th:action="@{/admin/user/{userId}(userId=${user.id})}" class="form-horizontal" method="post">
     <input type="hidden" name="id" th:value="${user.id}">
-    <input type="text" name="name" th:value="${user.name}">
+    <input type="text" name="name" class="form-control" th:value="${user.name}">
     <br>
-
 
 <div class="custom-control custom-switch" th:each="role:${roles}">
         <input type="checkbox"
@@ -22,8 +21,9 @@
                th:value="${role}"
                 />
 </div>
-    <button type="submit">add</button>
+    <button type="submit" class="btn btn-primary">add</button>
 </form>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 
 </body>

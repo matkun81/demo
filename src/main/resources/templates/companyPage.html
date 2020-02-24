@@ -113,10 +113,12 @@
             </div>
         </form>
     </div>
+
 </div>
 <div id="replace_div"
      th:if="${currentUser!=null}">
 </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 <script>
     setInterval(function () {
         getContent();

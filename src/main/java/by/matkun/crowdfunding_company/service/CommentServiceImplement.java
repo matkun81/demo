@@ -4,6 +4,7 @@ import by.matkun.crowdfunding_company.dao.CommentRepository;
 import by.matkun.crowdfunding_company.model.Comment;
 import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class CommentServiceImplement implements CommentService {
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public Comment find(Long id) {

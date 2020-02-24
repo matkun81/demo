@@ -1,5 +1,6 @@
 package by.matkun.crowdfunding_company.service;
 
+import by.matkun.crowdfunding_company.model.Company;
 import by.matkun.crowdfunding_company.model.News;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface NewsService {
     void delete (Long id);
 
     List<News> findByDate(News news);
+
+    News create(News news, Company company);
+
+    News update(News news,Long id);
 }

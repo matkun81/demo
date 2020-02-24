@@ -3,6 +3,7 @@ package by.matkun.crowdfunding_company.controller;
 import by.matkun.crowdfunding_company.model.Role;
 import by.matkun.crowdfunding_company.model.User;
 import by.matkun.crowdfunding_company.service.UserServiceImplement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,10 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 @PreAuthorize("hasAuthority('ADMIN')")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserServiceImplement userService;
+
+    private final UserServiceImplement userService;
 
     @GetMapping
     public String userList(Principal principal,Model model) {
@@ -44,11 +46,6 @@ public class UserController {
         User userFromDb = userService.find(user.getId());
         userService.setRole(userFromDb,form);
         userService.save(userFromDb);
-        return "redirect:/admin";
-    }
-    @PostMapping("/deleteUser")
-      public String deleteUser(@RequestParam Long userId){
-        userService.delete(userId);
         return "redirect:/admin";
     }
 }
